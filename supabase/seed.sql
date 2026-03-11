@@ -1,0 +1,2 @@
+-- Seed data (volitelné – přidej INSERTy pro testovací data)
+-- Při lokálním db reset se spustí migrace a pak tento soubor.
