@@ -1,0 +1,31 @@
+---
+description: Main project rules and memory workflow
+alwaysApply: true
+---
+
+# Pravidla projektu
+
+- Před většími úkoly načti **AGENTS.md** a paměťové soubory v **docs/** (working-memory.md, decisions.md).
+- Dávej přednost **minimálním, bezpečným a snadno reviewovatelným** změnám.
+- Vyhni se úpravám **nesouvisejícího kódu**.
+- Před **destruktivními operacemi** (mazání dat, breaking změny) se zeptej nebo to výslovně uveď v plánu.
+- **Drž se stávajícího stylu a architektury** repozitáře (Next.js App Router, Supabase, komponenty v components/, app/).
+- Po **významné práci** aktualizuj **docs/working-memory.md**.
+- Při **architektonických rozhodnutích** přidej záznam do **docs/decisions.md**.
+- Pokud úkol **není dokončen**, zapiš do working-memory **přesný další krok**.
+- Pokud narazíš na **blokátory**, zapiš je do **docs/working-memory.md**.
+- **Nemaž užitečný kontext** z paměťových souborů; přidávej nebo reviduj opatrně.
+
+## Výstupní chování
+
+- Buď **stručný**.
+- U netriviálních změn **nejdřív uveď plán**, pak proveď změny.
+- Uveď **dotčené soubory**.
+- U větších úkolů **zakonči krátkým shrnutím** pro paměť (co se změnilo, co doporučit další session).
+
+## Příkazy (ověřeno v repozitáři)
+
+- `npm run dev` – vývojový server (Next.js)
+- `npm run build` – production build
+- `npm run lint` – ESLint
+- `npx supabase db push` – aplikace migrací na Supabase (vyžaduje `supabase link` a DB heslo)
