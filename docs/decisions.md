@@ -46,3 +46,37 @@ Zadání požadovalo design a funkcionalitu 1:1. Figma export (Vite/React) byl r
 ### Alternatives considered
 
 - Použití figma-exportu jako submodulu nebo npm balíčku – zbytečně složité; stačí reference a ruční soulad.
+
+---
+
+## 2025-03-12
+
+### Decision
+
+Po každé smysluplné práci agent rovnou aktualizuje docs/working-memory.md (Recent changes, Current repository state, Notes for next session) a při architektonických/designových změnách docs/decisions.md. Nečeká na vyzvání uživatele.
+
+### Reason
+
+Uživatel požadoval „vždy rovnou updatuj všechny agents.md, docs, memory atd“, aby kontext zůstal aktuální a další session mohla navázat bez ztráty informací.
+
+### Impact
+
+- Session workflow v AGENTS.md explicitně zmiňuje aktualizaci paměťových souborů po dokončení práce.
+- working-memory obsahuje konkrétní Recent changes a stav repozitáře; decisions zachytává větší rozhodnutí.
+
+---
+
+## 2025-03-13
+
+### Decision
+
+Fotogalerie ročníků: obrázky se ukládají do Supabase Storage bucketu `year-gallery` (veřejný read, zápis jen authenticated). Metadata (year_id, sort_order, storage_path) v tabulce `year_gallery`. Admin uploaduje přes YearGalleryForm, veřejný detail `/archiv/[id]` zobrazuje galerii při publikovaném ročníku.
+
+### Reason
+
+Zadání požadovalo fotogalerii s uploadem a pořadím. Storage umožňuje přímý upload z klienta bez vlastního API; RLS zajišťuje oprávnění.
+
+### Impact
+
+- Migrace `20250313000000_storage_year_gallery.sql` vytváří bucket a RLS. Před použitím je nutné `npx supabase db push`.
+- Public URL obrázků: `{SUPABASE_URL}/storage/v1/object/public/year-gallery/{path}`.

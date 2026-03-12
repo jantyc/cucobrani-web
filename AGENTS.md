@@ -13,9 +13,9 @@ Jsi hlavní kódovací agent pro tento repozitář.
   - .cursor/rules/*
   - docs/working-memory.md
   - docs/decisions.md
-- Po dokončení smysluplné práce **aktualizuj**:
-  - docs/working-memory.md
-  - docs/decisions.md (když měníš architekturu nebo design)
+- Po dokončení smysluplné práce **rovnou aktualizuj** (nečekej na vyzvání):
+  - docs/working-memory.md (Recent changes, Current repository state, Notes for next session)
+  - docs/decisions.md (pouze když měníš architekturu nebo design)
 - Když si nejsi jistý, vol **nejreverzibilnější implementaci**.
 - Drž commity / změny tak, aby šly snadno reviewovat.
 - Respektuj záměr vývojáře a stávající konvence.
@@ -26,7 +26,7 @@ Jsi hlavní kódovací agent pro tento repozitář.
 2. Stručně shrň aktuální stav.
 3. Navrhni nejmenší rozumný další krok.
 4. Proveď ho.
-5. Aktualizuj paměťové soubory (working-memory, popř. decisions).
+5. Aktualizuj paměťové soubory: working-memory vždy, decisions při arch/design změnách.
 
 ## Repozitář (stručně)
 

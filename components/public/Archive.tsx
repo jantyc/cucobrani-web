@@ -24,7 +24,7 @@ export function Archive({ years }: ArchiveProps) {
             className="uppercase text-xs font-semibold tracking-widest"
             style={{ color: WINE_RED, fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Archiv ročníků
+            Historie
           </span>
         </div>
         <div className="mb-10">

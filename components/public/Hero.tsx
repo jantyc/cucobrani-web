@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, MessageCircle, Ticket } from "lucide-react";
+import Link from "next/link";
 import { DARK_WINE, WINE_RED, ACID_GREEN, HERO_IMG } from "@/lib/theme";
 
 interface HeroProps {
@@ -153,10 +154,55 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
           </div>
         </div>
 
+        {/* Malé CTA – olivově zelené (dle Figmy) */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+          <button
+            type="button"
+            onClick={() => scrollToSection("kontakt")}
+            className="inline-flex items-center gap-2 transition-all duration-200 hover:opacity-90"
+            style={{
+              backgroundColor: "rgba(122,140,50,0.35)",
+              color: "#fff",
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              letterSpacing: "0.04em",
+              padding: "0.6rem 1.25rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(167,209,41,0.5)",
+              cursor: "pointer",
+            }}
+          >
+            <MessageCircle size={16} />
+            Mám dotaz
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection("kontakt")}
+            className="inline-flex items-center gap-2 transition-all duration-200 hover:opacity-90"
+            style={{
+              backgroundColor: "rgba(122,140,50,0.35)",
+              color: "#fff",
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              letterSpacing: "0.04em",
+              padding: "0.6rem 1.25rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(167,209,41,0.5)",
+              cursor: "pointer",
+            }}
+          >
+            <Ticket size={16} />
+            Rezervovat vstupenku
+          </button>
+        </div>
+
+        {/* Hlavní CTA – dle Figmy: ZJISTIT VÍCE, PŘIHLÁSIT SE */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             type="button"
-            onClick={() => scrollToSection("aktualni-rocnik")}
+            onClick={() => scrollToSection("o-akci")}
             className="transition-all duration-200 hover:-translate-y-0.5"
             style={{
               backgroundColor: WINE_RED,
@@ -170,12 +216,11 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
               cursor: "pointer",
             }}
           >
-            Zobrazit poslední ročník
+            ZJISTIT VÍCE
           </button>
-          <button
-            type="button"
-            onClick={() => scrollToSection("archiv")}
-            className="transition-all duration-200 hover:-translate-y-0.5"
+          <Link
+            href="/admin"
+            className="transition-all duration-200 hover:-translate-y-0.5 inline-block text-center"
             style={{
               backgroundColor: "transparent",
               color: "#fff",
@@ -186,10 +231,11 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
               borderRadius: "4px",
               border: "1px solid rgba(255,255,255,0.35)",
               cursor: "pointer",
+              textDecoration: "none",
             }}
           >
-            Procházet archiv
-          </button>
+            PŘIHLÁSIT SE
+          </Link>
         </div>
       </div>
 

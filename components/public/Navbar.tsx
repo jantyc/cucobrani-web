@@ -5,8 +5,8 @@ import { Menu, X, Wine } from "lucide-react";
 import { WINE_RED, DARK_WINE, ACID_GREEN } from "@/lib/theme";
 
 const navLinks = [
-  { label: "O akci", href: "#o-akci" },
-  { label: "Aktuální ročník", href: "#aktualni-rocnik" },
+  { label: "Aktuality", href: "#aktualni-rocnik" },
+  { label: "O nás", href: "#o-akci" },
   { label: "Archiv", href: "#archiv" },
   { label: "Místo konání", href: "#misto-konani" },
   { label: "Kontakt", href: "#kontakt" },

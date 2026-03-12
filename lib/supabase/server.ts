@@ -2,13 +2,10 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export async function createClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) {
-    throw new Error(
-      "Chybí env: NEXT_PUBLIC_SUPABASE_URL nebo NEXT_PUBLIC_SUPABASE_ANON_KEY. Nastav je na Vercelu v Settings → Environment Variables."
-    );
-  }
+  // Při buildu na Vercelu nemusí být env k dispozici – použijeme fallback, aby build nepadl.
+  // Pro běh aplikace je nutné nastavit env na Vercelu (Settings → Environment Variables).
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
   const cookieStore = await cookies();
 
   return createServerClient(

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { DARK_WINE } from "@/lib/theme";
 import { YearForm } from "../YearForm";
 import { YearResultsForm } from "../YearResultsForm";
+import { YearGalleryForm } from "../YearGalleryForm";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -65,6 +66,21 @@ export default async function AdminYearEditPage({ params }: PageProps) {
           Výsledky soutěže
         </h2>
         <YearResultsForm yearId={id} />
+      </div>
+
+      <div className="mt-10">
+        <h2
+          className="mb-4"
+          style={{
+            fontFamily: "var(--font-bebas), sans-serif",
+            fontSize: "1.5rem",
+            color: DARK_WINE,
+            letterSpacing: "0.04em",
+          }}
+        >
+          Fotogalerie
+        </h2>
+        <YearGalleryForm yearId={id} />
       </div>
     </div>
   );

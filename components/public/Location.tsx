@@ -13,7 +13,7 @@ export function Location() {
             className="uppercase text-xs font-semibold tracking-widest"
             style={{ color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Místo konání
+            Lokace
           </span>
         </div>
         <h2

@@ -27,7 +27,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
             className="uppercase text-xs font-semibold tracking-widest"
             style={{ color: WINE_RED, fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Aktuální ročník
+            Aktuálně
           </span>
         </div>
         <h2
@@ -37,11 +37,14 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
             color: DARK_WINE,
             letterSpacing: "0.03em",
             lineHeight: 1,
-            marginBottom: "1rem",
+            marginBottom: "0.5rem",
           }}
         >
           Poslední ročník
         </h2>
+        <p className="text-[#777] text-sm mb-8" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+          Zjistěte, jak dopadl poslední ročník, nahlédněte do fotogalerie a videozáznamů.
+        </p>
 
         {latestYear ? (
           <div

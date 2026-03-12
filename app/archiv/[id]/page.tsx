@@ -63,6 +63,23 @@ export default async function YearPage({ params }: PageProps) {
     }
   }
 
+  let gallery: { storage_path: string }[] = [];
+  if (isPublished) {
+    try {
+      const { data } = await supabase
+        .from("year_gallery")
+        .select("storage_path")
+        .eq("year_id", id)
+        .order("sort_order", { ascending: true });
+      gallery = data ?? [];
+    } catch {
+      // Storage bucket nebo tabulka nemusí existovat
+    }
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  const galleryUrls = gallery.map((g) => `${supabaseUrl}/storage/v1/object/public/year-gallery/${g.storage_path}`);
+
   const displayTitle = year.title || year.name || (year.year ? `${year.edition || ""}. ročník – ${year.year}` : "Ročník");
   const hasProgram = year.program_title || year.program_author || year.program_description || year.program_image_url || year.program_pdf_url;
 
@@ -104,9 +121,9 @@ export default async function YearPage({ params }: PageProps) {
         >
           {displayTitle}
         </h1>
-        {!hasProgram && !results && (
+        {!hasProgram && !results && galleryUrls.length === 0 && (
           <p className="text-[#666] mb-8" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
-            Detail ročníku. Výsledky a program budou doplněny.
+            Detail ročníku. Výsledky, program a galerie budou doplněny.
           </p>
         )}
 
@@ -208,6 +225,35 @@ export default async function YearPage({ params }: PageProps) {
                   </ul>
                 </div>
               )}
+            </div>
+          </section>
+        )}
+
+        {galleryUrls.length > 0 && (
+          <section className="mb-8 p-6 rounded-xl bg-white border border-black/10">
+            <h2
+              className="mb-4"
+              style={{
+                fontFamily: "var(--font-bebas), sans-serif",
+                fontSize: "1.25rem",
+                color: DARK_WINE,
+              }}
+            >
+              Fotogalerie
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {galleryUrls.map((url, i) => (
+                <a
+                  key={i}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-lg overflow-hidden border border-black/10 aspect-square focus:ring-2 focus:ring-[#7A1E2C]/40"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={url} alt="" className="w-full h-full object-cover" />
+                </a>
+              ))}
             </div>
           </section>
         )}

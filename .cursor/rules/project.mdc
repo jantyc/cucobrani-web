@@ -10,7 +10,7 @@ alwaysApply: true
 - Vyhni se úpravám **nesouvisejícího kódu**.
 - Před **destruktivními operacemi** (mazání dat, breaking změny) se zeptej nebo to výslovně uveď v plánu.
 - **Drž se stávajícího stylu a architektury** repozitáře (Next.js App Router, Supabase, komponenty v components/, app/).
-- Po **významné práci** aktualizuj **docs/working-memory.md**.
+- Po **významné práci** rovnou aktualizuj **docs/working-memory.md** (Recent changes, stav repozitáře, Notes for next session) – nečekej na vyzvání.
 - Při **architektonických rozhodnutích** přidej záznam do **docs/decisions.md**.
 - Pokud úkol **není dokončen**, zapiš do working-memory **přesný další krok**.
 - Pokud narazíš na **blokátory**, zapiš je do **docs/working-memory.md**.

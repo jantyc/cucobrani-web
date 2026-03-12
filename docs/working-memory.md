@@ -9,16 +9,19 @@
 ## Current repository state
 
 - **Stack:** Next.js 14, React 18, TypeScript, Supabase (DB + Auth), Tailwind CSS 3, lucide-react.
-- **Veřejný web:** Hero (upcoming_event), Navbar, O akci, Aktuální ročník, Archiv (grid/timeline), Místo konání, Kontakt, Footer. Detail ročníku `/archiv/[id]`: zobrazuje **program** (nadpis, autor, popis, obrázek, PDF) a **výsledky soutěže** (Královna sklepa, Cena diváků, Sračka roku, Bílá vína, Červená vína) jen když je ročník ve stavu „publikováno“. Design 1:1 z Figmy (figma-export/). Barvy: DARK_WINE, WINE_RED, ACID_GREEN, LIGHT_BG. Fonty: Bebas Neue, Inter.
-- **Admin:** Přihlášení (Supabase Auth), dashboard, Nadcházející ročník (formulář + live preview), Archiv ročníků (CRUD – rok, pořadí, název, stav). Na editaci ročníku (`/admin/years/[id]`): formulář ročníku včetně **programu** (nadpis, zpracování, popis, URL obrázku, URL PDF) a sekce **Výsledky soutěže** (Královna sklepa, Cena diváků, Sračka roku – po 1 řádku; Bílá a Červená vína – více řádků, přidat/smazat). Chráněné route pod `/admin` kromě `/admin/login`.
+- **Veřejný web:** Hero (upcoming_event, dva malé CTA „Mám dotaz“ / „Rezervovat vstupenku“, hlavní „ZJISTIT VÍCE“ / „PŘIHLÁSIT SE“), Navbar (Aktuality, O nás, Archiv, Místo konání, Kontakt), O akci + **testimoniály** (Jan Novák, Anna Dvořáková), Poslední ročník (label „Aktuálně“), Archiv (label „Historie“, vyhledávání „Vyhledat podle roku…“, tlačítko filtr, prázdný stav „NIC NENALEZENO“), Místo konání (label „Lokace“), Kontakt (adresa/tel/email/sociální sítě, placeholder „Formulář / mapa“, organizátoři), Footer (3 sloupce: logo+©+adresa, Menu, Sledujte nás). Detail ročníku `/archiv/[id]`: program, výsledky a **fotogalerie** (mřížka, odkaz na plný obrázek) při stavu publikováno. Barvy: DARK_WINE, WINE_RED, ACID_GREEN, LIGHT_BG. Fonty: Bebas Neue, Inter.
+- **Admin:** Přihlášení (Supabase Auth), dashboard, Nadcházející ročník (formulář + live preview), Archiv ročníků (CRUD). Na editaci ročníku (`/admin/years/[id]`): formulář ročníku + **program** (nadpis, autor, popis, URL obrázku/PDF), **Výsledky soutěže** (manuální zadání), **Fotogalerie** (upload do Supabase Storage bucket `year-gallery`, řazení šipkami, mazání). Chráněné route pod `/admin` kromě `/admin/login`.
 - **DB:** Obě migrace nasazené (years, upcoming, upcoming_event, rozšíření years, year_results_*, year_gallery). Hero a rozšířené ročníky teď mají plné schéma.
 - **Deploy:** GitHub repo, Vercel. Env na Vercelu: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY.
 
 ## Recent changes
 
-- **Admin + veřejný detail ročníku:** YearForm rozšířen o pole programu (program_title, program_author, program_description, program_image_url, program_pdf_url). Přidána komponenta YearResultsForm na stránce editace ročníku: manuální zadání výsledků (Královna sklepa, Cena diváků, Sračka roku, Bílá vína, Červená vína). Veřejná stránka `/archiv/[id]` načítá a zobrazuje program (včetně obrázku a PDF) a výsledky, jen když je ročník publikován.
-- **Druhá migrace nasazena:** `npx supabase db push` proběhl; tabulky upcoming_event, year_results_*, year_gallery a rozšíření years jsou na remote DB. V migraci byl INSERT do upcoming_event upraven na idempotentní (vloží výchozí řádek jen pokud tabulka je prázdná), aby nevznikal konflikt s constraintem na remote.
-- Založena struktura pro persistentní agenta: AGENTS.md, .cursor/rules/project.mdc, docs/working-memory.md, docs/decisions.md.
+- **Fotogalerie:** Migrace `20250313000000_storage_year_gallery.sql` – bucket `year-gallery` (veřejné čtení, zápis authenticated), RLS na storage.objects. Admin: komponenta YearGalleryForm (upload obrázků, řazení nahoru/dolů, mazání) na stránce editace ročníku. Veřejný detail `/archiv/[id]`: sekce Fotogalerie (mřížka) při publikovaném ročníku. Pro uplatnění bucketu je potřeba spustit `npx supabase db push`.
+- **Frontend 1:1 s Figmou:** Hero – dva malé olivové CTA (Mám dotaz, Rezervovat vstupenku), hlavní tlačítka ZJISTIT VÍCE / PŘIHLÁSIT SE. Navbar – Aktuality, O nás, Archiv, Místo, Kontakt. O akci – testimoniály (Jan Novák 4.5★, Anna Dvořáková 5★). Poslední ročník – label „Aktuálně“, popisek. Archiv – label „Historie“, placeholder „Vyhledat podle roku…“, dropdown filtr, prázdný stav „NIC NENALEZENO“. Lokace – label „Lokace“. Kontakt – adresa, tel, email, FB/IG, placeholder „Formulář / mapa“, organizátoři. Footer – 3 sloupce (logo+©+adresa, Menu, Sledujte nás).
+- **Vercel build:** createClient() bez throw při chybějících env (fallback ""), sitemap.ts podmíněné volání DB; build projde i bez env, pro běh je nutné nastavit NEXT_PUBLIC_SUPABASE_* na Vercelu.
+- **Admin + veřejný detail ročníku:** YearForm + program, YearResultsForm, `/archiv/[id]` program a výsledky.
+- **Druhá migrace nasazena:** db push, idempotentní INSERT upcoming_event.
+- Založena struktura pro persistentní agenta: AGENTS.md, .cursor/rules, docs/working-memory.md, docs/decisions.md.
 
 ## Constraints
 
@@ -31,7 +34,7 @@
 
 - První admin uživatel se zakládá v Supabase (Authentication → Users → Add user).
 - Volitelně: omezit admin jen na povolené e-maily (tabulka nebo env).
-- Podle ZADANI_DOKONCENI.md zbývá: admin – paste výsledků z Excelu/CSV (volitelné rozšíření), fotogalerie (upload, pořadí); veřejný detail – galerie; Supabase Storage bucket pro galerii a program (obrázky/PDF zatím jako URL).
+- Podle ZADANI_DOKONCENI.md zbývá: admin – paste výsledků z Excelu/CSV (volitelné); omezit admin na povolené e-maily (volitelné). Fotogalerie a Storage bucket `year-gallery` jsou implementované – po nasazení migrace (`npx supabase db push`) fungují upload i zobrazení na detailu ročníku.
 
 ## Next recommended step
 
@@ -40,4 +43,4 @@
 ## Notes for next session
 
 - Klíčové zdroje pravdy: ZADANI_DOKONCENI.md (co je hotové / co zbývá), KROKY.md (nastavení), tento working-memory a decisions.md.
-- **Poslední session:** Admin: rozšířen YearForm o program, přidán YearResultsForm (výsledky). Veřejný detail ročníku zobrazuje program a výsledky (jen při stavu publikováno). Zbývá: fotogalerie (admin upload + zobrazení na detailu), volitelně paste z Excelu/CSV pro výsledky, Supabase Storage bucket.
+- **Poslední session:** Implementována fotogalerie: Storage bucket `year-gallery` (migrace), admin YearGalleryForm (upload, řazení, mazání), veřejný detail ročníku zobrazuje galerii. Před použitím spustit `npx supabase db push`. Zbývá volitelně: paste výsledků z Excelu/CSV, omezení adminu na povolené e-maily.

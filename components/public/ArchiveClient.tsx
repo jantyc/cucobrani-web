@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, LayoutGrid, List } from "lucide-react";
+import { Search, LayoutGrid, List, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import type { YearForArchive } from "./Archive";
 import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
@@ -127,19 +127,29 @@ export function ArchiveClient({ years }: ArchiveClientProps) {
   return (
     <>
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
-        <div className="flex-1 relative">
-          <Search
-            size={16}
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#aaa]"
-          />
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Hledat rok, ročník…"
-            className="w-full pl-10 pr-4 py-3 rounded-lg border border-black/10 bg-white outline-none"
-            style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem" }}
-          />
+        <div className="flex-1 flex gap-2">
+          <div className="flex-1 relative">
+            <Search
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#aaa]"
+            />
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Vyhledat podle roku…"
+              className="w-full pl-10 pr-4 py-3 rounded-lg border border-black/10 bg-white outline-none"
+              style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem" }}
+            />
+          </div>
+          <button
+            type="button"
+            aria-label="Filtry"
+            className="px-4 py-3 rounded-lg border border-black/10 bg-[#E8E4DF] text-[#666] flex items-center justify-center"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          >
+            <ChevronDown size={18} />
+          </button>
         </div>
         <div
           className="flex gap-1 p-1 rounded-lg"
@@ -198,17 +208,17 @@ export function ArchiveClient({ years }: ArchiveClientProps) {
             style={{
               fontFamily: "var(--font-bebas), sans-serif",
               fontSize: "2rem",
-              color: "#ccc",
+              color: "#999",
               letterSpacing: "0.06em",
             }}
           >
-            Nic nenalezeno
+            NIC NENALEZENO
           </p>
           <p
             className="text-sm text-[#aaa] mt-2"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Zkuste jiný vyhledávací výraz.
+            Zkuste změnit filtry vyhledávání.
           </p>
         </div>
       )}

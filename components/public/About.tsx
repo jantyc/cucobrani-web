@@ -1,4 +1,4 @@
-import { LIGHT_BG, WINE_RED, DARK_WINE } from "@/lib/theme";
+import { LIGHT_BG, WINE_RED, DARK_WINE, ACID_GREEN } from "@/lib/theme";
 
 const IMG_TASTING =
   "https://images.unsplash.com/photo-1616688921374-d941709f7263?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900";
@@ -117,6 +117,55 @@ export function About() {
                   Putovní anticena pro nejméně povedený mok. Vítěz musí vypít sklenici svého vzorku
                   na ex.
                 </p>
+              </div>
+            </div>
+
+            {/* Testimoniály dle Figmy – Jan Novák (burgundy), Anna Dvořáková (light green) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+              <div
+                className="rounded-xl p-5 text-white flex items-start gap-4"
+                style={{ backgroundColor: DARK_WINE }}
+              >
+                <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0 text-xl">
+                  👤
+                </div>
+                <div>
+                  <p className="font-semibold" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+                    Jan Novák
+                  </p>
+                  <div className="flex gap-0.5 my-1" aria-hidden>
+                    {[1, 2, 3, 4].map((i) => (
+                      <span key={i} style={{ color: ACID_GREEN }}>★</span>
+                    ))}
+                    <span className="text-white/50">★</span>
+                    <span className="text-white/70 text-sm ml-1" style={{ fontFamily: "var(--font-inter), sans-serif" }}>4.5</span>
+                  </div>
+                  <p className="text-sm text-white/80 leading-relaxed" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+                    Skvělá atmosféra, výborná vína a pořádná legrace. Každý rok se těším.
+                  </p>
+                </div>
+              </div>
+              <div
+                className="rounded-xl p-5 border border-black/10 flex items-start gap-4"
+                style={{ backgroundColor: "#E8F0D8" }}
+              >
+                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 text-xl" style={{ backgroundColor: "rgba(167,209,41,0.3)" }}>
+                  👤
+                </div>
+                <div>
+                  <p className="font-semibold text-[#333]" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+                    Anna Dvořáková
+                  </p>
+                  <div className="flex gap-0.5 my-1" aria-hidden>
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <span key={i} style={{ color: WINE_RED }}>★</span>
+                    ))}
+                    <span className="text-[#666] text-sm ml-1" style={{ fontFamily: "var(--font-inter), sans-serif" }}>5</span>
+                  </div>
+                  <p className="text-sm text-[#555] leading-relaxed" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+                    Nejlepší degustace v regionu. Organizátoři mají můj obdiv.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
