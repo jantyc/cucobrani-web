@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { ACID_GREEN } from "@/lib/theme";
 
 const HERO_PREVIEW_ID = "upcoming-live-preview";
+const FIXED_ID = "00000000-0000-0000-0000-000000000001";
 
 interface UpcomingFormProps {
   initial: { text: string; location: string; datetime: string };
@@ -28,12 +29,22 @@ export function UpcomingForm({ initial }: UpcomingFormProps) {
     setMessage(null);
     setSaving(true);
     const supabase = createClient();
+
+    // Pro jistotu smažeme všechny existující řádky kromě případného fixního (constraint „one_row“)
+    const { error: deleteError } = await supabase.from("upcoming_event").delete().neq("id", FIXED_ID);
+    if (deleteError) {
+      setMessage({ type: "err", text: deleteError.message });
+      setSaving(false);
+      return;
+    }
+
     const { error } = await supabase
       .from("upcoming_event")
       .upsert(
-        { id: "00000000-0000-0000-0000-000000000001", text, location, datetime },
+        { id: FIXED_ID, text, location, datetime },
         { onConflict: "id" }
       );
+
     if (error) {
       setMessage({ type: "err", text: error.message });
       setSaving(false);

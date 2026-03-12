@@ -16,12 +16,28 @@ export function YearResultsForm({ yearId }: YearResultsFormProps) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [whitePasteText, setWhitePasteText] = useState("");
+  const [redPasteText, setRedPasteText] = useState("");
 
   const [queen, setQueen] = useState<SingleRow>({ name: "", wine: "", points: "" });
   const [audience, setAudience] = useState<SingleRow>({ name: "", wine: "", points: "" });
   const [worst, setWorst] = useState<SingleRow>({ name: "", wine: "", points: "" });
   const [white, setWhite] = useState<PositionRow[]>([]);
   const [red, setRed] = useState<PositionRow[]>([]);
+
+  function parsePastedList(text: string): PositionRow[] {
+    return text
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0)
+      .map((line) => {
+        const cleaned = line.replace(/^\d+\s*[.\)]\s*/, "");
+        const parts = cleaned.split(/[;\t]/).map((p) => p.trim());
+        const [name = "", wine = "", points = ""] = parts;
+        return { position: 0, name, wine, points };
+      })
+      .filter((row) => row.name || row.wine || row.points);
+  }
 
   useEffect(() => {
     const supabase = createClient();
@@ -167,6 +183,49 @@ export function YearResultsForm({ yearId }: YearResultsFormProps) {
         <h3 className="text-base font-semibold text-[#333] mb-3" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           Bílá vína
         </h3>
+        <p className="text-xs text-[#666] mb-2" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+          Můžeš ručně vyplnit tabulku níže, nebo vložit řádky z Excelu/CSV (každý řádek ve formátu „jméno; víno; body“).
+        </p>
+        <details className="mb-3">
+          <summary className="text-xs text-[#7A1E2C] cursor-pointer" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+            Vložit seznam z Excelu / CSV
+          </summary>
+          <div className="mt-2 space-y-2">
+            <textarea
+              value={whitePasteText}
+              onChange={(e) => setWhitePasteText(e.target.value)}
+              rows={4}
+              className={`${inputCls} w-full text-xs`}
+              placeholder={"1; Jan Novák; Ryzlink rýnský; 92\n2; Petra Veselá; Pálava; 89"}
+            />
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const parsed = parsePastedList(whitePasteText);
+                  if (parsed.length === 0) return;
+                  setWhite(parsed.map((r, i) => ({ ...r, position: i + 1 })));
+                }}
+                className="px-3 py-1.5 rounded-lg text-xs text-white font-medium"
+                style={{ backgroundColor: "#7A1E2C", fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                Přepsat bílá vína podle vloženého textu
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const parsed = parsePastedList(whitePasteText);
+                  if (parsed.length === 0) return;
+                  setWhite((prev) => [...prev, ...parsed.map((r, i) => ({ ...r, position: prev.length + i + 1 }))]);
+                }}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium border border-black/15 text-[#333]"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                Přidat na konec seznamu
+              </button>
+            </div>
+          </div>
+        </details>
         <div className="space-y-2">
           {white.map((row, i) => (
             <div key={i} className="grid grid-cols-12 gap-2 items-center">
@@ -189,6 +248,49 @@ export function YearResultsForm({ yearId }: YearResultsFormProps) {
         <h3 className="text-base font-semibold text-[#333] mb-3" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           Červená vína
         </h3>
+        <p className="text-xs text-[#666] mb-2" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+          Můžeš ručně vyplnit tabulku níže, nebo vložit řádky z Excelu/CSV (každý řádek ve formátu „jméno; víno; body“).
+        </p>
+        <details className="mb-3">
+          <summary className="text-xs text-[#7A1E2C] cursor-pointer" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+            Vložit seznam z Excelu / CSV
+          </summary>
+          <div className="mt-2 space-y-2">
+            <textarea
+              value={redPasteText}
+              onChange={(e) => setRedPasteText(e.target.value)}
+              rows={4}
+              className={`${inputCls} w-full text-xs`}
+              placeholder={"1; Jan Novák; Frankovka; 91\n2; Petra Veselá; Modrý Portugal; 88"}
+            />
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const parsed = parsePastedList(redPasteText);
+                  if (parsed.length === 0) return;
+                  setRed(parsed.map((r, i) => ({ ...r, position: i + 1 })));
+                }}
+                className="px-3 py-1.5 rounded-lg text-xs text-white font-medium"
+                style={{ backgroundColor: "#7A1E2C", fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                Přepsat červená vína podle vloženého textu
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const parsed = parsePastedList(redPasteText);
+                  if (parsed.length === 0) return;
+                  setRed((prev) => [...prev, ...parsed.map((r, i) => ({ ...r, position: prev.length + i + 1 }))]);
+                }}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium border border-black/15 text-[#333]"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                Přidat na konec seznamu
+              </button>
+            </div>
+          </div>
+        </details>
         <div className="space-y-2">
           {red.map((row, i) => (
             <div key={i} className="grid grid-cols-12 gap-2 items-center">

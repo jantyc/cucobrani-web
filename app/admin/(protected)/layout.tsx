@@ -9,10 +9,24 @@ export default async function ProtectedAdminLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     redirect("/admin/login");
+  }
+
+  const allowedEmailsEnv = process.env.ADMIN_ALLOWED_EMAILS;
+  if (allowedEmailsEnv && user.email) {
+    const allowedEmails = allowedEmailsEnv
+      .split(",")
+      .map((email) => email.trim().toLowerCase())
+      .filter(Boolean);
+
+    if (!allowedEmails.includes(user.email.toLowerCase())) {
+      redirect("/");
+    }
   }
 
   return (

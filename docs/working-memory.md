@@ -24,6 +24,10 @@
 - **Admin + veřejný detail ročníku:** YearForm + program, YearResultsForm, `/archiv/[id]` program a výsledky.
 - **Druhá migrace nasazena:** db push, idempotentní INSERT upcoming_event.
 - Založena struktura pro persistentní agenta: AGENTS.md, .cursor/rules, docs/working-memory.md, docs/decisions.md.
+ - **Omezení adminu na e-maily (volitelné):** V `app/admin/(protected)/layout.tsx` se při přístupu do `/admin` kontroluje whitelist e-mailů z env proměnné `ADMIN_ALLOWED_EMAILS` (čárkou oddělené). Pokud je proměnná prázdná/není nastavena, mají přístup všichni přihlášení uživatelé; pokud je nastavená, do adminu se dostanou jen uživatelé s e-mailem v seznamu. Příklad je v `.env.example`.
+ - **Paste výsledků z Excelu/CSV (admin):** V `YearResultsForm` jsou u sekcí „Bílá vína“ a „Červená vína“ textarea v collapsible blocích, kam lze vložit řádky z Excelu/CSV (oddělovač `;` nebo tab), ve formátu „jméno; víno; body“. Tlačítky lze buď přepsat celý seznam bílých/červených vín, nebo vložit nové řádky na konec.
+ - **Fix nadcházejícího ročníku:** Stránka `/admin/upcoming` načítá hodnoty z `upcoming_event` a `UpcomingForm` při uložení nejdřív smaže všechny existující řádky a poté provede `upsert` jednoho řádku s fixním `id` (`00000000-0000-0000-0000-000000000001`). Tím garantuje, že je v tabulce vždy maximálně jeden řádek a nepadá chyba „duplicate key value violates unique constraint 'upcoming_event_one_row'“ ani pokud v tabulce historicky vznikly duplicity.
+ - **Testovací pravidlo pro nové funkce:** V `.cursor/rules/testing-new-features.mdc` je pravidlo popisující, jak testovat novou funkcionalitu (identifikace flow, CRUD scénáře, zachytávání chyb, lint, aktualizace working-memory/decisions).
 
 ## Constraints
 
@@ -34,8 +38,7 @@
 ## Open issues
 
 - První admin uživatel se zakládá v Supabase (Authentication → Users → Add user).
-- Volitelně: omezit admin jen na povolené e-maily (tabulka nebo env).
-- Zbývá volitelně: paste výsledků z Excelu/CSV v adminu; omezit admin na povolené e-maily (tabulka nebo env). Fotogalerie a bucket `year-gallery` jsou hotové a migrace nasazené.
+- Fotogalerie a bucket `year-gallery` jsou hotové a migrace nasazené.
 
 ## Next recommended step
 
@@ -44,4 +47,4 @@
 ## Notes for next session
 
 - Klíčové zdroje pravdy: ZADANI_DOKONCENI.md (co je hotové / co zbývá), KROKY.md (nastavení), tento working-memory a decisions.md.
-- **Poslední session:** Fonty sjednoceny na next/font (Bebas Neue, Inter 400–700) a v komponentách používány CSS proměnné pro 1:1 vzhled se zipem. Web vypadá dobře, push a docs updatnuty. Zbývá volitelně: paste výsledků z Excelu/CSV, omezení adminu na e-maily.
+- **Poslední session:** Fonty sjednoceny na next/font (Bebas Neue, Inter 400–700) a v komponentách používány CSS proměnné pro 1:1 vzhled se zipem. Web vypadá dobře, push a docs updatnuty. V adminu je nově whitelist e-mailů přes `ADMIN_ALLOWED_EMAILS` a paste výsledků bílých i červených vín z Excelu/CSV v `YearResultsForm`.
