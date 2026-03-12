@@ -1,4 +1,4 @@
-// Barvy a konstanty designu Čůčobraní (1:1 z Figma exportu)
+// Barvy a konstanty designu Čůčobraní (1:1 dle ČŮČO.zip)
 export const DARK_WINE = "#3A0F16";
 export const WINE_RED = "#7A1E2C";
 export const ACID_GREEN = "#A7D129";

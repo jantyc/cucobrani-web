@@ -1,16 +1,15 @@
 # Zadání a stav dokončení Čůčobraní
 
-## Figma export
+## Design reference
 
-- **Umístění:** `figma-export/` (rozbalený obsah z `ČÚČO.zip`)
-- **Originál:** [Figma ČŮČO](https://www.figma.com/design/4awHTxSXJNqfsGtvbwgMpI/ČŮČO)
+- **Umístění:** `ČŮČO.zip` (rozbalený obsah slouží jako reference; veřejný frontend v `components/public/` je 1:1 dle zipu)
 - Design: Bebas Neue (nadpisy), Inter (text), barvy DARK_WINE `#3A0F16`, WINE_RED `#7A1E2C`, ACID_GREEN `#A7D129`, LIGHT_BG `#F6F4F1`
 
 ## Co je hotové
 
 - Repo na GitHubu, deploy na Vercel
 - Supabase: první migrace (years, upcoming), druhá migrace připravena v `supabase/migrations/20250312100000_cucobrani_full_schema.sql` (upcoming_event, výsledky, program, galerie)
-- **Veřejný web 1:1 dle Figma exportu:** Hero (s daty z `upcoming_event`), Navbar, O akci, Aktuální ročník, Archiv (grid/timeline, odkaz na detail), Místo konání, Kontakt, Footer. Stránka detailu ročníku `/archiv/[id]`. Design: Bebas Neue + Inter, barvy DARK_WINE, WINE_RED, ACID_GREEN, LIGHT_BG.
+- **Veřejný web 1:1 dle ČŮČO.zip:** Hero (s daty z `upcoming_event`), Navbar, O akci, Aktuální ročník (včetně výsledků a galerie), Archiv (grid/timeline, modal YearDetail), Místo konání, Kontakt, Footer. Detail ročníku: modal na homepage nebo stránka `/archiv/[id]`. Design: Bebas Neue + Inter, barvy v `lib/theme.ts`.
 - **SEO:** metadata v layoutu, `app/sitemap.ts`, `app/robots.ts` (allow /, disallow /admin).
 - **Admin:** přihlášení (Supabase Auth, e-mail + heslo), dashboard (dvě karty), Nadcházející ročník (formulář text/místo/datum + live preview, ukládá do `upcoming_event`), Archiv ročníků (tabulka, přidat/upravit/smazat ročník, základní pole: rok, pořadí, název, stav). Odhlášení přes POST `/admin/logout`.
 
@@ -36,5 +35,5 @@
 - **Vercel:** env proměnné `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (pro veřejný web).
 - **Supabase Storage:** bucket pro galerii a program (obrázky, PDF); v migraci nebo v dashboardu vytvořit a nastavit RLS.
 - **Růžová vína:** v zadání nejsou; v DB a adminu pouze Bílá, Červená, Královna sklepa, Cena diváků, Sračka roku.
-- **Figma export** zůstává v `figma-export/` jako reference pro 1:1 implementaci.
+- **Design reference:** obsah `ČŮČO.zip` (komponenty, styly) je referenční; živý kód je v `components/public/` a `lib/theme.ts`.
 - **První admin uživatel:** vytvoř v Supabase v **Authentication → Users → Add user** (e-mail + heslo). Tím se založí účet, kterým se přihlásíš na `/admin/login`. RLS umožňuje zápis všem přihlášeným; pro ostrý provoz můžeš omezit přístup (např. tabulka povolených e-mailů).

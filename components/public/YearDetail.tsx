@@ -1,20 +1,14 @@
+"use client";
+
 import { useState } from "react";
 import { X, ChevronDown, ChevronUp, Camera, FileText, ExternalLink, Scroll } from "lucide-react";
-import { YearData } from "../data/cucobrani";
+import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
+import type { YearData } from "@/lib/year-data";
 
-const DARK_WINE = "#3A0F16";
-const WINE_RED = "#7A1E2C";
-const ACID_GREEN = "#A7D129";
 const LIGHT_BG = "#F6F4F1";
 const PROGRAM_BG = "#F6F4F1";
 
-interface LightboxProps {
-  images: string[];
-  initial: number;
-  onClose: () => void;
-}
-
-function Lightbox({ images, initial, onClose }: LightboxProps) {
+function Lightbox({ images, initial, onClose }: { images: string[]; initial: number; onClose: () => void }) {
   const [idx, setIdx] = useState(initial);
   return (
     <div
@@ -23,6 +17,7 @@ function Lightbox({ images, initial, onClose }: LightboxProps) {
       onClick={onClose}
     >
       <button
+        type="button"
         onClick={onClose}
         className="absolute top-5 right-5"
         style={{ color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
@@ -30,6 +25,7 @@ function Lightbox({ images, initial, onClose }: LightboxProps) {
         <X size={32} />
       </button>
       <button
+        type="button"
         onClick={(e) => { e.stopPropagation(); setIdx((i) => Math.max(0, i - 1)); }}
         style={{
           position: "absolute",
@@ -48,6 +44,7 @@ function Lightbox({ images, initial, onClose }: LightboxProps) {
       >
         ‹
       </button>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={images[idx]}
         alt=""
@@ -55,6 +52,7 @@ function Lightbox({ images, initial, onClose }: LightboxProps) {
         style={{ maxWidth: "90vw", maxHeight: "90vh", borderRadius: "8px", objectFit: "contain" }}
       />
       <button
+        type="button"
         onClick={(e) => { e.stopPropagation(); setIdx((i) => Math.min(images.length - 1, i + 1)); }}
         style={{
           position: "absolute",
@@ -80,16 +78,12 @@ function Lightbox({ images, initial, onClose }: LightboxProps) {
   );
 }
 
-interface AccordionResultProps {
-  title: string;
-  entries: { place: number; name: string; wine: string; points?: number }[];
-}
-
-function AccordionResult({ title, entries }: AccordionResultProps) {
+function AccordionResult({ title, entries }: { title: string; entries: { place: number; name: string; wine: string; points?: number }[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}>
       <button
+        type="button"
         onClick={() => setOpen(!open)}
         style={{
           width: "100%",
@@ -102,9 +96,7 @@ function AccordionResult({ title, entries }: AccordionResultProps) {
           cursor: "pointer",
         }}
       >
-        <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.1rem", letterSpacing: "0.06em", color: DARK_WINE }}>
-          {title}
-        </span>
+        <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.1rem", letterSpacing: "0.06em", color: DARK_WINE }}>{title}</span>
         {open ? <ChevronUp size={16} style={{ color: WINE_RED }} /> : <ChevronDown size={16} style={{ color: WINE_RED }} />}
       </button>
       {open && (
@@ -115,7 +107,7 @@ function AccordionResult({ title, entries }: AccordionResultProps) {
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <tbody>
                 {entries.map((e) => (
-                  <tr key={e.place} style={{ borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
+                  <tr key={`${e.place}-${e.name}`} style={{ borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
                     <td style={{ padding: "0.5rem 0", width: "30px", color: WINE_RED, fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: "0.875rem" }}>{e.place}.</td>
                     <td style={{ padding: "0.5rem 0", fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", color: "#222" }}>{e.name}</td>
                     <td style={{ padding: "0.5rem 0", fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", color: "#666" }}>{e.wine}</td>
@@ -158,7 +150,6 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
           }}
           className="md:rounded-2xl md:m-4"
         >
-          {/* Header */}
           <div
             style={{
               background: DARK_WINE,
@@ -168,6 +159,7 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
             }}
           >
             <button
+              type="button"
               onClick={onClose}
               style={{
                 position: "absolute",
@@ -187,16 +179,7 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
             >
               <X size={18} />
             </button>
-            <span
-              style={{
-                color: ACID_GREEN,
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.72rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                fontWeight: 600,
-              }}
-            >
+            <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>
               {year.edition}. ročník
             </span>
             <h2
@@ -211,92 +194,42 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
             >
               Čůčobraní {year.year}
             </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", marginTop: "0.5rem" }}>
-              {year.description}
-            </p>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", marginTop: "0.5rem" }}>{year.description}</p>
           </div>
 
           <div style={{ padding: "2rem" }}>
-            {/* Theme & Program card — shown before winners if theme exists */}
             {year.theme && (
               <>
-                <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.75rem" }}>
-                  Téma a program
-                </h3>
-                <div
-                  style={{
-                    background: PROGRAM_BG,
-                    borderRadius: "10px",
-                    borderLeft: `3px solid ${ACID_GREEN}`,
-                    overflow: "hidden",
-                    marginBottom: "1.75rem",
-                  }}
-                >
+                <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.75rem" }}>Téma a program</h3>
+                <div style={{ background: PROGRAM_BG, borderRadius: "10px", borderLeft: `3px solid ${ACID_GREEN}`, overflow: "hidden", marginBottom: "1.75rem" }}>
                   <div style={{ padding: "1.25rem 1.5rem" }}>
-                    {/* Zelená accent linka nahoře */}
                     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.65rem" }}>
                       <span style={{ display: "inline-block", width: "18px", height: "2px", backgroundColor: ACID_GREEN, borderRadius: "2px", flexShrink: 0 }} />
                       <Scroll size={11} style={{ color: ACID_GREEN }} />
-                      <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700 }}>
-                        Téma ročníku
-                      </span>
+                      <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700 }}>Téma ročníku</span>
                     </div>
-                    <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1.1, marginBottom: year.theme.sceneTitle ? "0.3rem" : "0" }}>
-                      {year.theme.title}
-                    </p>
+                    <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1.1, marginBottom: year.theme.sceneTitle ? "0.3rem" : "0" }}>{year.theme.title}</p>
                     {year.theme.sceneTitle && (
                       <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", color: "rgba(58,15,22,0.45)", marginBottom: "0", display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
-                        <span
-                          style={{
-                            display: "inline-block",
-                            background: "rgba(167,209,41,0.15)",
-                            color: ACID_GREEN,
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.6rem",
-                            fontWeight: 700,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            padding: "1px 6px",
-                            borderRadius: "3px",
-                            border: "1px solid rgba(167,209,41,0.3)",
-                          }}
-                        >zpracování</span>
+                        <span style={{ display: "inline-block", background: "rgba(167,209,41,0.15)", color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "1px 6px", borderRadius: "3px", border: "1px solid rgba(167,209,41,0.3)" }}>zpracování</span>
                         <span style={{ color: DARK_WINE, fontWeight: 600 }}>{year.theme.sceneTitle}</span>
                       </p>
                     )}
                     {year.theme.sceneDescription && (
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", color: "rgba(58,15,22,0.55)", lineHeight: 1.6, marginTop: "0.6rem", borderTop: "1px solid rgba(167,209,41,0.2)", paddingTop: "0.6rem" }}>
-                        {year.theme.sceneDescription}
-                      </p>
+                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", color: "rgba(58,15,22,0.55)", lineHeight: 1.6, marginTop: "0.6rem", borderTop: "1px solid rgba(167,209,41,0.2)", paddingTop: "0.6rem" }}>{year.theme.sceneDescription}</p>
                     )}
                   </div>
-
-                  {/* PDF thumbnail */}
                   {year.theme.programThumbnailUrl && (
                     <div style={{ padding: "0 1.25rem 1.25rem", display: "flex", gap: "0.75rem", alignItems: "center" }}>
                       <div style={{ width: "80px", height: "56px", borderRadius: "5px", overflow: "hidden", flexShrink: 0, border: "1px solid rgba(167,209,41,0.15)" }}>
-                        <img
-                          src={year.theme.programThumbnailUrl}
-                          alt="Náhled programu"
-                          style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.75)" }}
-                        />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={year.theme.programThumbnailUrl} alt="Náhled programu" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.75)" }} />
                       </div>
                       <a
                         href={year.theme.programPdfUrl ?? "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "0.35rem",
-                          color: ACID_GREEN,
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: "0.78rem",
-                          fontWeight: 600,
-                          textDecoration: "none",
-                          opacity: 0.9,
-                          transition: "opacity 0.15s",
-                        }}
+                        style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", fontWeight: 600, textDecoration: "none", opacity: 0.9, transition: "opacity 0.15s" }}
                         onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
                         onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
                       >
@@ -310,11 +243,7 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
               </>
             )}
 
-            {/* Winners */}
-            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "1rem" }}>
-              Vítězové
-            </h3>
-
+            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "1rem" }}>Vítězové</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {year.winners.queenOfCellar && (
                 <div style={{ gridColumn: "1 / -1", background: WINE_RED, borderRadius: "8px", padding: "1rem 1.25rem" }}>
@@ -328,58 +257,45 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
                 { emoji: "🍷", label: "Červená vína", data: year.winners.red },
                 { emoji: "👥", label: "Cena diváků", data: year.winners.audience },
                 { emoji: "🤢", label: "Sračka roku", data: year.winners.worst },
-              ].filter(w => w.data).map((w) => (
-                <div key={w.label} style={{ background: LIGHT_BG, borderRadius: "8px", padding: "1rem 1.25rem" }}>
-                  <p style={{ color: "#888", fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{w.emoji} {w.label}</p>
-                  <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.2rem", color: DARK_WINE, letterSpacing: "0.04em" }}>
-                    {(w.data as { name: string; wine: string }).name}
-                  </p>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.82rem", color: "#666" }}>
-                    {(w.data as { name: string; wine: string }).wine}
-                  </p>
-                </div>
-              ))}
+              ]
+                .filter((w) => w.data)
+                .map((w) => (
+                  <div key={w.label} style={{ background: LIGHT_BG, borderRadius: "8px", padding: "1rem 1.25rem" }}>
+                    <p style={{ color: "#888", fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{w.emoji} {w.label}</p>
+                    <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.2rem", color: DARK_WINE, letterSpacing: "0.04em" }}>{(w.data as { name: string; wine: string }).name}</p>
+                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.82rem", color: "#666" }}>{(w.data as { name: string; wine: string }).wine}</p>
+                  </div>
+                ))}
             </div>
 
-            {/* Results accordion */}
-            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.25rem" }}>
-              Kompletní výsledky
-            </h3>
+            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.25rem" }}>Kompletní výsledky</h3>
             <AccordionResult title="🍷 Bílá vína" entries={year.results.white} />
             <AccordionResult title="🍷 Červená vína" entries={year.results.red} />
             <AccordionResult title="🌸 Růžová vína" entries={year.results.rose} />
 
-            {/* Gallery */}
-            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginTop: "1.75rem", marginBottom: "1rem" }}>
-              Fotogalerie
-            </h3>
+            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginTop: "1.75rem", marginBottom: "1rem" }}>Fotogalerie</h3>
             {!year.hasGallery || year.gallery.length === 0 ? (
-              <div
-                style={{
-                  background: LIGHT_BG,
-                  borderRadius: "8px",
-                  padding: "2rem",
-                  textAlign: "center",
-                  color: "#888",
-                }}
-              >
+              <div style={{ background: LIGHT_BG, borderRadius: "8px", padding: "2rem", textAlign: "center", color: "#888" }}>
                 <Camera size={28} style={{ margin: "0 auto 0.75rem", color: "#ccc" }} />
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
-                  Fotografie z tohoto ročníku zatím nemáme.
-                </p>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", color: "#bbb", marginTop: "0.3rem" }}>
-                  Možná je někdo zapomněl vyvolat.
-                </p>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>Fotografie z tohoto ročníku zatím nemáme.</p>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", color: "#bbb", marginTop: "0.3rem" }}>Možná je někdo zapomněl vyvolat.</p>
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {year.gallery.map((img, i) => (
                   <div
                     key={i}
+                    role="button"
+                    tabIndex={0}
                     onClick={() => setLightboxIdx(i)}
+                    onKeyDown={(e) => e.key === "Enter" && setLightboxIdx(i)}
                     style={{ aspectRatio: "1", borderRadius: "8px", overflow: "hidden", cursor: "pointer" }}
                   >
-                    <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.2s" }}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={img}
+                      alt=""
+                      style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.2s" }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.05)")}
                       onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
                     />
@@ -391,9 +307,7 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
         </div>
       </div>
 
-      {lightboxIdx !== null && (
-        <Lightbox images={year.gallery} initial={lightboxIdx} onClose={() => setLightboxIdx(null)} />
-      )}
+      {lightboxIdx !== null && <Lightbox images={year.gallery} initial={lightboxIdx} onClose={() => setLightboxIdx(null)} />}
     </>
   );
 }

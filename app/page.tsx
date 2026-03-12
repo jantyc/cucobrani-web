@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { fetchYearsWithData } from "@/lib/fetch-years";
 import { Navbar } from "@/components/public/Navbar";
 import { Hero } from "@/components/public/Hero";
 import { About } from "@/components/public/About";
@@ -12,10 +13,11 @@ export default async function HomePage() {
   let upcomingText = "XXXVIII. ROČNÍK ČŮČOBRANÍ SE KONÁ:";
   let upcomingLocation = "Žďár nad Metují";
   let upcomingDatetime = "30. ledna 2027 od 16:00";
-  let years: { id: string; year?: number | null; edition?: string | null; title?: string | null; name?: string | null; status?: string | null; program_title?: string | null; program_pdf_url?: string | null }[] = [];
+  let yearsWithData: Awaited<ReturnType<typeof fetchYearsWithData>> = [];
 
   try {
     const supabase = await createClient();
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 
     try {
       const { data } = await supabase
@@ -27,23 +29,22 @@ export default async function HomePage() {
       if (data?.location) upcomingLocation = data.location;
       if (data?.datetime) upcomingDatetime = data.datetime;
     } catch {
-      // Tabulka upcoming_event nemusí existovat před druhou migrací
+      // Tabulka upcoming_event nemusí existovat
     }
 
     try {
-      const { data } = await supabase.from("years").select("*").order("created_at", { ascending: false });
-      years = (data ?? []).filter((y: { status?: string | null }) => !y.status || y.status === "publikováno");
+      yearsWithData = await fetchYearsWithData(supabase, supabaseUrl);
     } catch {
-      // Tabulka years nebo sloupec status nemusí existovat
+      // Tabulka years nebo výsledky nemusí existovat
     }
   } catch {
-    // Supabase nebo env nedostupné – zobrazíme výchozí obsah
+    // Supabase nebo env nedostupné
   }
 
-  const latestYear = years[0] ?? null;
+  const latestYear = yearsWithData[0] ?? null;
 
   return (
-    <div style={{ fontFamily: "var(--font-inter), sans-serif", minHeight: "100vh" }}>
+    <div style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#F6F4F1", minHeight: "100vh" }}>
       <Navbar />
       <Hero
         upcomingText={upcomingText}
@@ -52,7 +53,7 @@ export default async function HomePage() {
       />
       <About />
       <CurrentEdition latestYear={latestYear} />
-      <Archive years={years} />
+      <Archive years={yearsWithData} />
       <Location />
       <Contact />
       <Footer />
