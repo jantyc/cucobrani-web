@@ -16,6 +16,7 @@
 
 ## Recent changes
 
+- **Fonty 1:1 dle ČŮČO.zip:** Všechny komponenty veřejného webu používají `var(--font-bebas)` a `var(--font-inter)` místo literálů ‚Bebas Neue‘ / ‚Inter‘, aby se vždy aplikovaly fonty načtené přes next/font. V layoutu Inter s váhami 400, 500, 600, 700 (jako v zipu). Pushnuto (commit 0302ff1).
 - **Úklid projektu:** Odstraněna složka `figma-export/` (reference je ČŮČO.zip). Odstraněny prázdné složky `data/`, `types/`. Z tsconfig vypuštěn exclude figma-export. Dokumentace (AGENTS.md, ZADANI_DOKONCENI.md, docs/working-memory.md, docs/decisions.md) upravena – design reference = ČŮČO.zip. V Navbar použitá konstanta ACID_GREEN místo literálu.
 - **Frontend 1:1 dle ČŮČO.zip:** Veřejná homepage přepsána podle referenčního zipu. Hero – jen badge nadcházejícího ročníku a dva CTA (Zobrazit poslední ročník, Procházet archiv). Navbar – O akci, Aktuální ročník, Archiv, Místo konání, Kontakt. About – bez testimoniálů, styly dle zipu. CurrentEdition – tmavá sekce, vítězové + téma + accordion výsledků + fotogalerie s lightboxem; data z `fetchYearsWithData()`. Archive – grid/timeline, vyhledávání, po kliknutí na ročník modal YearDetail (ne odkaz na `/archiv/[id]`). Location, Contact, Footer – obsah a styly 1:1 ze zipu. Přidány `lib/year-data.ts`, `lib/fetch-years.ts`; odstraněn `ArchiveClient.tsx`. Stránka předává plná data ročníků (včetně výsledků a galerie) z DB.
 - **Fotogalerie:** Migrace `20250313000000_storage_year_gallery.sql` – bucket `year-gallery`. Admin: YearGalleryForm. Veřejný detail v modalu YearDetail.
@@ -43,4 +44,4 @@
 ## Notes for next session
 
 - Klíčové zdroje pravdy: ZADANI_DOKONCENI.md (co je hotové / co zbývá), KROKY.md (nastavení), tento working-memory a decisions.md.
-- **Poslední session:** Frontend veřejné homepage přepsán 1:1 podle ČŮČO.zip (Hero, Navbar, About, CurrentEdition, Archive + modal YearDetail, Location, Contact, Footer). Žádné přidané ani ubrání funkce oproti zipu. Build prochází. Zbývá volitelně: paste výsledků z Excelu/CSV, omezení adminu na e-maily.
+- **Poslední session:** Fonty sjednoceny na next/font (Bebas Neue, Inter 400–700) a v komponentách používány CSS proměnné pro 1:1 vzhled se zipem. Web vypadá dobře, push a docs updatnuty. Zbývá volitelně: paste výsledků z Excelu/CSV, omezení adminu na e-maily.

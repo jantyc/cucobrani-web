@@ -32,5 +32,5 @@ Jsi hlavní kódovací agent pro tento repozitář.
 
 - **Projekt:** Čůčobraní – web + admin pro soutěž domácích ovocných vín.
 - **Stack:** Next.js 14 (App Router), React 18, TypeScript, Supabase (DB + Auth), Tailwind CSS 3.
-- **Důležité soubory:** ZADANI_DOKONCENI.md (stav zadání), KROKY.md (návod nastavení), ČŮČO.zip (design reference), docs/working-memory.md (stav repozitáře, recent changes), docs/decisions.md (architektura).
+- **Důležité soubory:** ZADANI_DOKONCENI.md (stav zadání), KROKY.md (návod nastavení), ČŮČO.zip (design reference), docs/working-memory.md (stav repozitáře, recent changes), docs/decisions.md (architektura). Fonty: next/font v layout.tsx, v komponentách vždy var(--font-bebas) / var(--font-inter).
 - **Příkazy:** `npm run dev`, `npm run build`, `npx supabase db push` (migrace včetně Storage).

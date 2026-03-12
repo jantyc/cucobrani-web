@@ -41,6 +41,7 @@ Zadání požadovalo design a funkcionalitu 1:1. Obsah zipu slouží jako refere
 
 - Konzistentní vzhled (Bebas Neue, Inter, DARK_WINE, WINE_RED, ACID_GREEN, LIGHT_BG v lib/theme.ts).
 - Změny designu se provádějí v components/public/ a lib/theme.ts.
+- **Fonty:** next/font (Bebas_Neue, Inter s váhami 400/500/600/700) v app/layout.tsx, proměnné `--font-bebas` a `--font-inter` na html. V komponentách vždy `fontFamily: "var(--font-bebas), sans-serif"` resp. `var(--font-inter)`, ne literály, aby se načetl správný font.
 
 ---
 

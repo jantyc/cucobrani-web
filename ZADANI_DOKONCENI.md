@@ -3,7 +3,7 @@
 ## Design reference
 
 - **Umístění:** `ČŮČO.zip` (rozbalený obsah slouží jako reference; veřejný frontend v `components/public/` je 1:1 dle zipu)
-- Design: Bebas Neue (nadpisy), Inter (text), barvy DARK_WINE `#3A0F16`, WINE_RED `#7A1E2C`, ACID_GREEN `#A7D129`, LIGHT_BG `#F6F4F1`
+- Design: Bebas Neue (nadpisy), Inter 400/500/600/700 (text), barvy DARK_WINE `#3A0F16`, WINE_RED `#7A1E2C`, ACID_GREEN `#A7D129`, LIGHT_BG `#F6F4F1`. Fonty načteny přes next/font v app/layout.tsx, v komponentách použití `var(--font-bebas)` a `var(--font-inter)`.
 
 ## Co je hotové
 
