@@ -44,7 +44,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
             style={{
               color: ACID_GREEN,
               fontSize: "0.78rem",
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "var(--font-inter), sans-serif",
               letterSpacing: "0.1em",
               textTransform: "uppercase",
               fontWeight: 600,
@@ -56,7 +56,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
 
         <h1
           style={{
-            fontFamily: "'Bebas Neue', sans-serif",
+            fontFamily: "var(--font-bebas), sans-serif",
             fontSize: "clamp(5rem, 16vw, 14rem)",
             color: "#fff",
             letterSpacing: "0.03em",
@@ -70,7 +70,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
         <p
           style={{
             color: "rgba(255,255,255,0.85)",
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "var(--font-inter), sans-serif",
             fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
             maxWidth: "600px",
             margin: "0 auto 0.6rem",
@@ -82,7 +82,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
         <p
           style={{
             color: "rgba(255,255,255,0.6)",
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "var(--font-inter), sans-serif",
             fontSize: "clamp(0.875rem, 2vw, 1rem)",
             maxWidth: "560px",
             margin: "0 auto 1.75rem",
@@ -109,7 +109,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
             <span
               style={{
                 color: ACID_GREEN,
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "0.75rem",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
@@ -124,7 +124,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
                   backgroundColor: "rgba(167,209,41,0.12)",
                   border: "1px solid rgba(167,209,41,0.45)",
                   color: "#fff",
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "0.95rem",
                   fontWeight: 600,
                   borderRadius: "99px",
@@ -139,7 +139,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
                   backgroundColor: "rgba(167,209,41,0.12)",
                   border: "1px solid rgba(167,209,41,0.45)",
                   color: "#fff",
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "0.95rem",
                   fontWeight: 600,
                   borderRadius: "99px",
@@ -160,7 +160,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
             style={{
               backgroundColor: WINE_RED,
               color: "#fff",
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "var(--font-bebas), sans-serif",
               fontSize: "1.1rem",
               letterSpacing: "0.08em",
               padding: "0.85rem 2.2rem",
@@ -186,7 +186,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
             style={{
               backgroundColor: "transparent",
               color: "#fff",
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "var(--font-bebas), sans-serif",
               fontSize: "1.1rem",
               letterSpacing: "0.08em",
               padding: "0.85rem 2.2rem",

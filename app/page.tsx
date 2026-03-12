@@ -44,7 +44,7 @@ export default async function HomePage() {
   const latestYear = yearsWithData[0] ?? null;
 
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#F6F4F1", minHeight: "100vh" }}>
+    <div style={{ fontFamily: "var(--font-inter), sans-serif", backgroundColor: "#F6F4F1", minHeight: "100vh" }}>
       <Navbar />
       <Hero
         upcomingText={upcomingText}

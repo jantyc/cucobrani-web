@@ -30,7 +30,7 @@ function AccordionItem({ title, entries }: AccordionItemProps) {
           cursor: "pointer",
         }}
       >
-        <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.15rem", letterSpacing: "0.06em", color: DARK_WINE }}>
+        <span style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.15rem", letterSpacing: "0.06em", color: DARK_WINE }}>
           {title}
         </span>
         {open ? <ChevronUp size={18} style={{ color: WINE_RED }} /> : <ChevronDown size={18} style={{ color: WINE_RED }} />}
@@ -38,13 +38,13 @@ function AccordionItem({ title, entries }: AccordionItemProps) {
       {open && (
         <div className="pb-4">
           {entries.length === 0 ? (
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem", color: "#888" }}>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem", color: "#888" }}>
               V tomto ročníku tato kategorie nebyla hodnocena.
             </p>
           ) : (
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
-                <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.06)", fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "#888" }}>
+                <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.06)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "#888" }}>
                   <th style={{ textAlign: "left", paddingBottom: "0.5rem", width: "40px" }}>#</th>
                   <th style={{ textAlign: "left", paddingBottom: "0.5rem" }}>Výrobce</th>
                   <th style={{ textAlign: "left", paddingBottom: "0.5rem" }}>Víno</th>
@@ -53,7 +53,7 @@ function AccordionItem({ title, entries }: AccordionItemProps) {
               </thead>
               <tbody>
                 {entries.map((e) => (
-                  <tr key={`${e.place}-${e.name}`} style={{ borderBottom: "1px solid rgba(0,0,0,0.04)", fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
+                  <tr key={`${e.place}-${e.name}`} style={{ borderBottom: "1px solid rgba(0,0,0,0.04)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem" }}>
                     <td style={{ padding: "0.6rem 0", color: WINE_RED, fontWeight: 700 }}>{e.place}.</td>
                     <td style={{ padding: "0.6rem 0", color: "#222" }}>{e.name}</td>
                     <td style={{ padding: "0.6rem 0", color: "#555" }}>{e.wine}</td>
@@ -112,7 +112,7 @@ function ThemeCard({ theme }: { theme: YearTheme }) {
         <span
           style={{
             color: ACID_GREEN,
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "var(--font-inter), sans-serif",
             fontSize: "0.68rem",
             letterSpacing: "0.12em",
             textTransform: "uppercase",
@@ -125,7 +125,7 @@ function ThemeCard({ theme }: { theme: YearTheme }) {
       <div style={{ padding: "0.75rem 1.5rem 1.25rem" }}>
         <h4
           style={{
-            fontFamily: "'Bebas Neue', sans-serif",
+            fontFamily: "var(--font-bebas), sans-serif",
             fontSize: "1.4rem",
             color: "#fff",
             letterSpacing: "0.04em",
@@ -136,14 +136,14 @@ function ThemeCard({ theme }: { theme: YearTheme }) {
           {theme.title}
         </h4>
         {theme.sceneTitle && (
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.45)", marginBottom: "0" }}>
+          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.45)", marginBottom: "0" }}>
             Zpracování: <span style={{ color: "rgba(255,255,255,0.75)", fontWeight: 500 }}>{theme.sceneTitle}</span>
           </p>
         )}
         {theme.sceneDescription && (
           <p
             style={{
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "var(--font-inter), sans-serif",
               fontSize: "0.8rem",
               color: "rgba(255,255,255,0.4)",
               lineHeight: 1.6,
@@ -192,7 +192,7 @@ function ThemeCard({ theme }: { theme: YearTheme }) {
               <FileText size={14} style={{ color: ACID_GREEN }} />
               <span
                 style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "0.7rem",
                   color: "rgba(255,255,255,0.85)",
                   letterSpacing: "0.07em",
@@ -246,7 +246,7 @@ function Lightbox({ images, initial, onClose }: { images: string[]; initial: num
       >
         ›
       </button>
-      <div style={{ position: "absolute", bottom: "1.5rem", color: "rgba(255,255,255,0.45)", fontFamily: "'Inter', sans-serif", fontSize: "0.82rem" }}>
+      <div style={{ position: "absolute", bottom: "1.5rem", color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.82rem" }}>
         {idx + 1} / {images.length}
       </div>
     </div>
@@ -270,7 +270,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
       <div className="max-w-7xl mx-auto px-5 md:px-10">
         <div className="flex items-center gap-3 mb-12">
           <span style={{ width: "40px", height: "3px", backgroundColor: ACID_GREEN, display: "inline-block", borderRadius: "2px" }} />
-          <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>
+          <span style={{ color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>
             Aktuální ročník
           </span>
         </div>
@@ -279,7 +279,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
           <>
             <h2
               style={{
-                fontFamily: "'Bebas Neue', sans-serif",
+                fontFamily: "var(--font-bebas), sans-serif",
                 fontSize: "clamp(2.5rem, 5vw, 5rem)",
                 color: "#fff",
                 letterSpacing: "0.03em",
@@ -306,9 +306,9 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                     <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
                       <span style={{ fontSize: "2rem" }}>🏆</span>
                       <div>
-                        <p style={{ color: "rgba(255,255,255,0.65)", fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.25rem" }}>Královna sklepa</p>
-                        <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.9rem", color: "#fff", letterSpacing: "0.04em", lineHeight: 1.1 }}>{latestYear.winners.queenOfCellar.name}</p>
-                        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem", color: "rgba(255,255,255,0.7)", marginTop: "0.2rem" }}>{latestYear.winners.queenOfCellar.wine}</p>
+                        <p style={{ color: "rgba(255,255,255,0.65)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.25rem" }}>Královna sklepa</p>
+                        <p style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.9rem", color: "#fff", letterSpacing: "0.04em", lineHeight: 1.1 }}>{latestYear.winners.queenOfCellar.name}</p>
+                        <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem", color: "rgba(255,255,255,0.7)", marginTop: "0.2rem" }}>{latestYear.winners.queenOfCellar.wine}</p>
                       </div>
                     </div>
                   </div>
@@ -332,9 +332,9 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                           }}
                         >
                           <span style={{ fontSize: "1.3rem", display: "block", marginBottom: "0.5rem" }}>{w.emoji}</span>
-                          <p style={{ color: "rgba(255,255,255,0.5)", fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.3rem" }}>{w.label}</p>
-                          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", color: "#fff", letterSpacing: "0.04em", lineHeight: 1.1 }}>{(w.data as { name: string; wine: string }).name}</p>
-                          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", marginTop: "0.15rem" }}>{(w.data as { name: string; wine: string }).wine}</p>
+                          <p style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.3rem" }}>{w.label}</p>
+                          <p style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", color: "#fff", letterSpacing: "0.04em", lineHeight: 1.1 }}>{(w.data as { name: string; wine: string }).name}</p>
+                          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", marginTop: "0.15rem" }}>{(w.data as { name: string; wine: string }).wine}</p>
                         </div>
                       )
                   )}
@@ -354,7 +354,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                       borderLeft: `3px solid ${ACID_GREEN}`,
                       padding: "1.5rem",
                       color: "rgba(255,255,255,0.3)",
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "var(--font-inter), sans-serif",
                       fontSize: "0.875rem",
                     }}
                   >
@@ -366,7 +366,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
 
             <div style={{ background: "rgba(255,255,255,0.97)", borderRadius: "12px", padding: "2rem 2.5rem" }}>
               <div className="flex items-center justify-between mb-2">
-                <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.5rem", letterSpacing: "0.06em", color: DARK_WINE }}>Kompletní výsledky</h3>
+                <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.5rem", letterSpacing: "0.06em", color: DARK_WINE }}>Kompletní výsledky</h3>
                 <span style={{ backgroundColor: ACID_GREEN, color: DARK_WINE, fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "3px", letterSpacing: "0.05em", textTransform: "uppercase" }}>{latestYear.year}</span>
               </div>
               <AccordionItem title="🍷 Bílá vína" entries={latestYear.results.white} />
@@ -380,13 +380,13 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                   <div className="flex items-center gap-3">
                     <span style={{ width: "28px", height: "2px", backgroundColor: ACID_GREEN, display: "inline-block", borderRadius: "2px" }} />
                     <Camera size={14} style={{ color: ACID_GREEN }} />
-                    <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700 }}>Fotografie z akce</span>
+                    <span style={{ color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.75rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700 }}>Fotografie z akce</span>
                   </div>
                   {gallery.length > PREVIEW_COUNT && (
                     <button
                       type="button"
                       onClick={() => setShowAll(!showAll)}
-                      style={{ background: "transparent", border: "1px solid rgba(167,209,41,0.4)", color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, padding: "5px 14px", borderRadius: "4px", cursor: "pointer" }}
+                      style={{ background: "transparent", border: "1px solid rgba(167,209,41,0.4)", color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, padding: "5px 14px", borderRadius: "4px", cursor: "pointer" }}
                     >
                       {showAll ? "Zobrazit méně" : `Zobrazit vše (${gallery.length})`}
                     </button>
@@ -430,7 +430,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
             )}
           </>
         ) : (
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "1rem", color: "rgba(255,255,255,0.6)" }}>
+          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1rem", color: "rgba(255,255,255,0.6)" }}>
             Zatím není k dispozici žádný publikovaný ročník.
           </p>
         )}

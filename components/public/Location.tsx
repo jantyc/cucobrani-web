@@ -12,11 +12,11 @@ export function Location() {
       <div className="max-w-7xl mx-auto px-5 md:px-10">
         <div className="flex items-center gap-3 mb-4">
           <span style={{ width: "40px", height: "3px", backgroundColor: ACID_GREEN, display: "inline-block", borderRadius: "2px" }} />
-          <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>Místo konání</span>
+          <span style={{ color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>Místo konání</span>
         </div>
         <h2
           style={{
-            fontFamily: "'Bebas Neue', sans-serif",
+            fontFamily: "var(--font-bebas), sans-serif",
             fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
             color: "#fff",
             letterSpacing: "0.03em",
@@ -29,10 +29,10 @@ export function Location() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.75, marginBottom: "1.25rem" }}>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.75, marginBottom: "1.25rem" }}>
               Čůčobraní se každoročně koná v zimním období v oblasti <strong style={{ color: "#fff" }}>Machovska v okrese Náchod</strong>.
             </p>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.75, marginBottom: "2rem" }}>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.75, marginBottom: "2rem" }}>
               Akce je historicky spojená s obcí <strong style={{ color: "#fff" }}>Žďár nad Metují</strong>, kde se konala řada ročníků a odkud pochází mnoho účastníků i organizátorů. Každý ročník probíhá ve vybraném místním restauračním zařízení.
             </p>
 
@@ -53,8 +53,8 @@ export function Location() {
                   }}
                 >
                   <div style={{ fontSize: "1.25rem", marginBottom: "0.3rem" }}>{item.emoji}</div>
-                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{item.label}</div>
-                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.95rem", color: "#fff", fontWeight: 500 }}>{item.value}</div>
+                  <div style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{item.label}</div>
+                  <div style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.95rem", color: "#fff", fontWeight: 500 }}>{item.value}</div>
                 </div>
               ))}
             </div>
@@ -69,7 +69,7 @@ export function Location() {
                 gap: "0.5rem",
                 backgroundColor: WINE_RED,
                 color: "#fff",
-                fontFamily: "'Bebas Neue', sans-serif",
+                fontFamily: "var(--font-bebas), sans-serif",
                 fontSize: "1.05rem",
                 letterSpacing: "0.08em",
                 padding: "0.85rem 2rem",
@@ -97,7 +97,7 @@ export function Location() {
             <img src={IMG_LANDSCAPE} alt="Machovsko krajina" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(0,0,0,0.6)", borderRadius: "99px", padding: "0.4rem 1rem" }}>
               <MapPin size={12} style={{ color: ACID_GREEN }} />
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", color: "#fff" }}>Žďár nad Metují, Machovsko</span>
+              <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: "#fff" }}>Žďár nad Metují, Machovsko</span>
             </div>
           </div>
         </div>

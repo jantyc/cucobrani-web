@@ -43,7 +43,7 @@ export function Navbar() {
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="flex items-center gap-2 cursor-pointer"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", color: "#fff", letterSpacing: "0.08em" }}
+            style={{ fontFamily: "var(--font-bebas), sans-serif", color: "#fff", letterSpacing: "0.08em" }}
           >
             <Wine size={20} style={{ color: ACID_GREEN }} />
             <span style={{ fontSize: "1.4rem" }}>Čůčobraní</span>
@@ -58,7 +58,7 @@ export function Navbar() {
                   style={{
                     color: "rgba(255,255,255,0.85)",
                     fontSize: "0.85rem",
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "var(--font-inter), sans-serif",
                     letterSpacing: "0.05em",
                     textTransform: "uppercase",
                     fontWeight: 500,
@@ -115,7 +115,7 @@ export function Navbar() {
             onClick={() => handleNav(link.href)}
             style={{
               color: "rgba(255,255,255,0.9)",
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "var(--font-bebas), sans-serif",
               fontSize: "2rem",
               letterSpacing: "0.06em",
               textAlign: "left",

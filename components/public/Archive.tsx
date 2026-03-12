@@ -31,24 +31,24 @@ function YearCard({ year, onClick }: { year: YearData; onClick: () => void }) {
     >
       <div className="flex items-start justify-between mb-3">
         <div>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", color: WINE_RED, letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>
+          <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: WINE_RED, letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>
             {year.edition}. ročník
           </span>
-          <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.2rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1.0, marginTop: "0.1rem" }}>
+          <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "2.2rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1.0, marginTop: "0.1rem" }}>
             {year.year}
           </h3>
         </div>
         {year.hasGallery ? (
-          <span style={{ display: "flex", alignItems: "center", gap: "4px", backgroundColor: ACID_GREEN, color: DARK_WINE, fontSize: "0.68rem", fontWeight: 700, padding: "3px 8px", borderRadius: "4px", letterSpacing: "0.04em", textTransform: "uppercase", fontFamily: "'Inter', sans-serif" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: "4px", backgroundColor: ACID_GREEN, color: DARK_WINE, fontSize: "0.68rem", fontWeight: 700, padding: "3px 8px", borderRadius: "4px", letterSpacing: "0.04em", textTransform: "uppercase", fontFamily: "var(--font-inter), sans-serif" }}>
             <Camera size={10} /> Fotogalerie
           </span>
         ) : (
-          <span style={{ backgroundColor: "rgba(0,0,0,0.05)", color: "#999", fontSize: "0.65rem", fontFamily: "'Inter', sans-serif", padding: "3px 8px", borderRadius: "4px" }}>bez fotek</span>
+          <span style={{ backgroundColor: "rgba(0,0,0,0.05)", color: "#999", fontSize: "0.65rem", fontFamily: "var(--font-inter), sans-serif", padding: "3px 8px", borderRadius: "4px" }}>bez fotek</span>
         )}
       </div>
       <p
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "var(--font-inter), sans-serif",
           fontSize: "0.85rem",
           color: "#555",
           lineHeight: 1.55,
@@ -64,7 +64,7 @@ function YearCard({ year, onClick }: { year: YearData; onClick: () => void }) {
       {year.winners.queenOfCellar && (
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderTop: "1px solid rgba(0,0,0,0.06)", paddingTop: "0.75rem" }}>
           <Trophy size={14} style={{ color: WINE_RED, flexShrink: 0 }} />
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.82rem", color: "#333", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+          <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.82rem", color: "#333", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
             <strong>{year.winners.queenOfCellar.name}</strong> — {year.winners.queenOfCellar.wine}
           </span>
         </div>
@@ -82,17 +82,17 @@ function TimelineItem({ year, onClick }: { year: YearData; onClick: () => void }
       </div>
       <div className="pb-8 flex-1">
         <div className="flex items-center gap-3 mb-1">
-          <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1 }}>{year.year}</span>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", color: WINE_RED, letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600 }}>{year.edition}. ročník</span>
+          <span style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.8rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1 }}>{year.year}</span>
+          <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: WINE_RED, letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600 }}>{year.edition}. ročník</span>
           {year.hasGallery && (
-            <span style={{ backgroundColor: ACID_GREEN, color: DARK_WINE, fontSize: "0.65rem", fontWeight: 700, padding: "2px 6px", borderRadius: "3px", fontFamily: "'Inter', sans-serif", display: "flex", alignItems: "center", gap: "3px" }}>
+            <span style={{ backgroundColor: ACID_GREEN, color: DARK_WINE, fontSize: "0.65rem", fontWeight: 700, padding: "2px 6px", borderRadius: "3px", fontFamily: "var(--font-inter), sans-serif", display: "flex", alignItems: "center", gap: "3px" }}>
               <Camera size={9} /> Foto
             </span>
           )}
         </div>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", color: "#666", lineHeight: 1.55, marginBottom: "0.5rem" }}>{year.description}</p>
+        <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.875rem", color: "#666", lineHeight: 1.55, marginBottom: "0.5rem" }}>{year.description}</p>
         {year.winners.queenOfCellar && (
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", color: WINE_RED }}>🏆 {year.winners.queenOfCellar.name} — {year.winners.queenOfCellar.wine}</span>
+          <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: WINE_RED }}>🏆 {year.winners.queenOfCellar.name} — {year.winners.queenOfCellar.wine}</span>
         )}
       </div>
     </div>
@@ -127,12 +127,12 @@ export function Archive({ years }: ArchiveProps) {
       <div className="max-w-7xl mx-auto px-5 md:px-10">
         <div className="flex items-center gap-3 mb-4">
           <span style={{ width: "40px", height: "3px", backgroundColor: WINE_RED, display: "inline-block", borderRadius: "2px" }} />
-          <span style={{ color: WINE_RED, fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>Archiv ročníků</span>
+          <span style={{ color: WINE_RED, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>Archiv ročníků</span>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
-            <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.5rem, 5vw, 4.5rem)", color: DARK_WINE, letterSpacing: "0.03em", lineHeight: 1 }}>Archiv ročníků</h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem", color: "#777", marginTop: "0.4rem" }}>více než 30 let odvahy ochutnávat</p>
+            <h2 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "clamp(2.5rem, 5vw, 4.5rem)", color: DARK_WINE, letterSpacing: "0.03em", lineHeight: 1 }}>Archiv ročníků</h2>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem", color: "#777", marginTop: "0.4rem" }}>více než 30 let odvahy ochutnávat</p>
           </div>
           <div style={{ display: "flex", gap: "4px", background: "#E8E4DF", borderRadius: "8px", padding: "4px" }}>
             {(["grid", "timeline"] as ViewMode[]).map((v) => (
@@ -150,7 +150,7 @@ export function Archive({ years }: ArchiveProps) {
                   alignItems: "center",
                   gap: "5px",
                   color: view === v ? DARK_WINE : "#888",
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "0.8rem",
                   fontWeight: view === v ? 600 : 400,
                   transition: "all 0.15s",
@@ -178,7 +178,7 @@ export function Archive({ years }: ArchiveProps) {
                 borderRadius: "8px",
                 border: "1px solid rgba(0,0,0,0.1)",
                 background: "#fff",
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "0.9rem",
                 color: "#222",
                 outline: "none",
@@ -188,7 +188,7 @@ export function Archive({ years }: ArchiveProps) {
         </div>
 
         {filtered.length < years.length && years.length > 0 && (
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem", color: "#888", marginBottom: "1.5rem" }}>
+          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.85rem", color: "#888", marginBottom: "1.5rem" }}>
             Zobrazeno {filtered.length} z {years.length} ročníků
           </p>
         )}
@@ -211,8 +211,8 @@ export function Archive({ years }: ArchiveProps) {
 
         {filtered.length === 0 && (
           <div style={{ textAlign: "center", padding: "4rem 0" }}>
-            <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", color: "#ccc", letterSpacing: "0.06em" }}>Nic nenalezeno</p>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem", color: "#aaa", marginTop: "0.5rem" }}>Zkuste jiný vyhledávací výraz nebo filtr.</p>
+            <p style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "2rem", color: "#ccc", letterSpacing: "0.06em" }}>Nic nenalezeno</p>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem", color: "#aaa", marginTop: "0.5rem" }}>Zkuste jiný vyhledávací výraz nebo filtr.</p>
           </div>
         )}
       </div>

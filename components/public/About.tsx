@@ -27,7 +27,7 @@ export function About() {
           <span
             style={{
               color: WINE_RED,
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "var(--font-inter), sans-serif",
               fontSize: "0.78rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -42,7 +42,7 @@ export function About() {
           <div>
             <h2
               style={{
-                fontFamily: "'Bebas Neue', sans-serif",
+                fontFamily: "var(--font-bebas), sans-serif",
                 fontSize: "clamp(2.8rem, 5vw, 4.5rem)",
                 color: DARK_WINE,
                 letterSpacing: "0.03em",
@@ -55,7 +55,7 @@ export function About() {
 
             <p
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "1.05rem",
                 color: "#333",
                 lineHeight: 1.75,
@@ -68,7 +68,7 @@ export function About() {
             </p>
             <p
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "1.05rem",
                 color: "#333",
                 lineHeight: 1.75,
@@ -83,7 +83,7 @@ export function About() {
             <div className="mb-8">
               <p
                 style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "0.8rem",
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -99,7 +99,7 @@ export function About() {
                   <li
                     key={c.label}
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "var(--font-inter), sans-serif",
                       fontSize: "1rem",
                       color: "#222",
                       display: "flex",
@@ -126,7 +126,7 @@ export function About() {
                 <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🏆</div>
                 <div
                   style={{
-                    fontFamily: "'Bebas Neue', sans-serif",
+                    fontFamily: "var(--font-bebas), sans-serif",
                     fontSize: "1.3rem",
                     letterSpacing: "0.06em",
                     color: "#fff",
@@ -137,7 +137,7 @@ export function About() {
                 </div>
                 <p
                   style={{
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "var(--font-inter), sans-serif",
                     fontSize: "0.85rem",
                     color: "rgba(255,255,255,0.65)",
                     lineHeight: 1.5,
@@ -158,7 +158,7 @@ export function About() {
                 <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🤢</div>
                 <div
                   style={{
-                    fontFamily: "'Bebas Neue', sans-serif",
+                    fontFamily: "var(--font-bebas), sans-serif",
                     fontSize: "1.3rem",
                     letterSpacing: "0.06em",
                     color: DARK_WINE,
@@ -169,7 +169,7 @@ export function About() {
                 </div>
                 <p
                   style={{
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "var(--font-inter), sans-serif",
                     fontSize: "0.85rem",
                     color: "#666",
                     lineHeight: 1.5,
@@ -211,7 +211,7 @@ export function About() {
                 <div className="text-center px-4">
                   <div
                     style={{
-                      fontFamily: "'Bebas Neue', sans-serif",
+                      fontFamily: "var(--font-bebas), sans-serif",
                       fontSize: "3.5rem",
                       color: "#fff",
                       lineHeight: 1,
@@ -221,7 +221,7 @@ export function About() {
                   </div>
                   <div
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "var(--font-inter), sans-serif",
                       fontSize: "0.78rem",
                       color: "rgba(255,255,255,0.6)",
                       letterSpacing: "0.06em",

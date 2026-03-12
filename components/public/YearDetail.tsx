@@ -71,7 +71,7 @@ function Lightbox({ images, initial, onClose }: { images: string[]; initial: num
       >
         ›
       </button>
-      <div style={{ position: "absolute", bottom: "1.5rem", color: "rgba(255,255,255,0.5)", fontFamily: "'Inter', sans-serif", fontSize: "0.85rem" }}>
+      <div style={{ position: "absolute", bottom: "1.5rem", color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.85rem" }}>
         {idx + 1} / {images.length}
       </div>
     </div>
@@ -96,22 +96,22 @@ function AccordionResult({ title, entries }: { title: string; entries: { place: 
           cursor: "pointer",
         }}
       >
-        <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.1rem", letterSpacing: "0.06em", color: DARK_WINE }}>{title}</span>
+        <span style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.1rem", letterSpacing: "0.06em", color: DARK_WINE }}>{title}</span>
         {open ? <ChevronUp size={16} style={{ color: WINE_RED }} /> : <ChevronDown size={16} style={{ color: WINE_RED }} />}
       </button>
       {open && (
         <div className="pb-4">
           {entries.length === 0 ? (
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", color: "#888" }}>Nebyla hodnocena.</p>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.875rem", color: "#888" }}>Nebyla hodnocena.</p>
           ) : (
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <tbody>
                 {entries.map((e) => (
                   <tr key={`${e.place}-${e.name}`} style={{ borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
-                    <td style={{ padding: "0.5rem 0", width: "30px", color: WINE_RED, fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: "0.875rem" }}>{e.place}.</td>
-                    <td style={{ padding: "0.5rem 0", fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", color: "#222" }}>{e.name}</td>
-                    <td style={{ padding: "0.5rem 0", fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", color: "#666" }}>{e.wine}</td>
-                    <td style={{ padding: "0.5rem 0", textAlign: "right", fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", color: "#aaa" }}>{e.points ?? ""}</td>
+                    <td style={{ padding: "0.5rem 0", width: "30px", color: WINE_RED, fontFamily: "var(--font-inter), sans-serif", fontWeight: 700, fontSize: "0.875rem" }}>{e.place}.</td>
+                    <td style={{ padding: "0.5rem 0", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.875rem", color: "#222" }}>{e.name}</td>
+                    <td style={{ padding: "0.5rem 0", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.875rem", color: "#666" }}>{e.wine}</td>
+                    <td style={{ padding: "0.5rem 0", textAlign: "right", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.875rem", color: "#aaa" }}>{e.points ?? ""}</td>
                   </tr>
                 ))}
               </tbody>
@@ -179,12 +179,12 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
             >
               <X size={18} />
             </button>
-            <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>
+            <span style={{ color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>
               {year.edition}. ročník
             </span>
             <h2
               style={{
-                fontFamily: "'Bebas Neue', sans-serif",
+                fontFamily: "var(--font-bebas), sans-serif",
                 fontSize: "2.4rem",
                 color: "#fff",
                 letterSpacing: "0.04em",
@@ -194,29 +194,29 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
             >
               Čůčobraní {year.year}
             </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", marginTop: "0.5rem" }}>{year.description}</p>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", marginTop: "0.5rem" }}>{year.description}</p>
           </div>
 
           <div style={{ padding: "2rem" }}>
             {year.theme && (
               <>
-                <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.75rem" }}>Téma a program</h3>
+                <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.75rem" }}>Téma a program</h3>
                 <div style={{ background: PROGRAM_BG, borderRadius: "10px", borderLeft: `3px solid ${ACID_GREEN}`, overflow: "hidden", marginBottom: "1.75rem" }}>
                   <div style={{ padding: "1.25rem 1.5rem" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.65rem" }}>
                       <span style={{ display: "inline-block", width: "18px", height: "2px", backgroundColor: ACID_GREEN, borderRadius: "2px", flexShrink: 0 }} />
                       <Scroll size={11} style={{ color: ACID_GREEN }} />
-                      <span style={{ color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700 }}>Téma ročníku</span>
+                      <span style={{ color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700 }}>Téma ročníku</span>
                     </div>
-                    <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1.1, marginBottom: year.theme.sceneTitle ? "0.3rem" : "0" }}>{year.theme.title}</p>
+                    <p style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", color: DARK_WINE, letterSpacing: "0.04em", lineHeight: 1.1, marginBottom: year.theme.sceneTitle ? "0.3rem" : "0" }}>{year.theme.title}</p>
                     {year.theme.sceneTitle && (
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", color: "rgba(58,15,22,0.45)", marginBottom: "0", display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
-                        <span style={{ display: "inline-block", background: "rgba(167,209,41,0.15)", color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "1px 6px", borderRadius: "3px", border: "1px solid rgba(167,209,41,0.3)" }}>zpracování</span>
+                      <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", color: "rgba(58,15,22,0.45)", marginBottom: "0", display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
+                        <span style={{ display: "inline-block", background: "rgba(167,209,41,0.15)", color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "1px 6px", borderRadius: "3px", border: "1px solid rgba(167,209,41,0.3)" }}>zpracování</span>
                         <span style={{ color: DARK_WINE, fontWeight: 600 }}>{year.theme.sceneTitle}</span>
                       </p>
                     )}
                     {year.theme.sceneDescription && (
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", color: "rgba(58,15,22,0.55)", lineHeight: 1.6, marginTop: "0.6rem", borderTop: "1px solid rgba(167,209,41,0.2)", paddingTop: "0.6rem" }}>{year.theme.sceneDescription}</p>
+                      <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", color: "rgba(58,15,22,0.55)", lineHeight: 1.6, marginTop: "0.6rem", borderTop: "1px solid rgba(167,209,41,0.2)", paddingTop: "0.6rem" }}>{year.theme.sceneDescription}</p>
                     )}
                   </div>
                   {year.theme.programThumbnailUrl && (
@@ -229,7 +229,7 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
                         href={year.theme.programPdfUrl ?? "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: ACID_GREEN, fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", fontWeight: 600, textDecoration: "none", opacity: 0.9, transition: "opacity 0.15s" }}
+                        style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: ACID_GREEN, fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", fontWeight: 600, textDecoration: "none", opacity: 0.9, transition: "opacity 0.15s" }}
                         onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
                         onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
                       >
@@ -243,13 +243,13 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
               </>
             )}
 
-            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "1rem" }}>Vítězové</h3>
+            <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "1rem" }}>Vítězové</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {year.winners.queenOfCellar && (
                 <div style={{ gridColumn: "1 / -1", background: WINE_RED, borderRadius: "8px", padding: "1rem 1.25rem" }}>
-                  <p style={{ color: "rgba(255,255,255,0.6)", fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>🏆 Královna sklepa</p>
-                  <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem", color: "#fff", letterSpacing: "0.04em" }}>{year.winners.queenOfCellar.name}</p>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem", color: "rgba(255,255,255,0.65)" }}>{year.winners.queenOfCellar.wine}</p>
+                  <p style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>🏆 Královna sklepa</p>
+                  <p style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.4rem", color: "#fff", letterSpacing: "0.04em" }}>{year.winners.queenOfCellar.name}</p>
+                  <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.85rem", color: "rgba(255,255,255,0.65)" }}>{year.winners.queenOfCellar.wine}</p>
                 </div>
               )}
               {[
@@ -261,24 +261,24 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
                 .filter((w) => w.data)
                 .map((w) => (
                   <div key={w.label} style={{ background: LIGHT_BG, borderRadius: "8px", padding: "1rem 1.25rem" }}>
-                    <p style={{ color: "#888", fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{w.emoji} {w.label}</p>
-                    <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.2rem", color: DARK_WINE, letterSpacing: "0.04em" }}>{(w.data as { name: string; wine: string }).name}</p>
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.82rem", color: "#666" }}>{(w.data as { name: string; wine: string }).wine}</p>
+                    <p style={{ color: "#888", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{w.emoji} {w.label}</p>
+                    <p style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.2rem", color: DARK_WINE, letterSpacing: "0.04em" }}>{(w.data as { name: string; wine: string }).name}</p>
+                    <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.82rem", color: "#666" }}>{(w.data as { name: string; wine: string }).wine}</p>
                   </div>
                 ))}
             </div>
 
-            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.25rem" }}>Kompletní výsledky</h3>
+            <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginBottom: "0.25rem" }}>Kompletní výsledky</h3>
             <AccordionResult title="🍷 Bílá vína" entries={year.results.white} />
             <AccordionResult title="🍷 Červená vína" entries={year.results.red} />
             <AccordionResult title="🌸 Růžová vína" entries={year.results.rose} />
 
-            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginTop: "1.75rem", marginBottom: "1rem" }}>Fotogalerie</h3>
+            <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginTop: "1.75rem", marginBottom: "1rem" }}>Fotogalerie</h3>
             {!year.hasGallery || year.gallery.length === 0 ? (
               <div style={{ background: LIGHT_BG, borderRadius: "8px", padding: "2rem", textAlign: "center", color: "#888" }}>
                 <Camera size={28} style={{ margin: "0 auto 0.75rem", color: "#ccc" }} />
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>Fotografie z tohoto ročníku zatím nemáme.</p>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", color: "#bbb", marginTop: "0.3rem" }}>Možná je někdo zapomněl vyvolat.</p>
+                <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem" }}>Fotografie z tohoto ročníku zatím nemáme.</p>
+                <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: "#bbb", marginTop: "0.3rem" }}>Možná je někdo zapomněl vyvolat.</p>
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

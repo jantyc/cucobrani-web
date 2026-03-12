@@ -28,17 +28,17 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div>
-            <div className="flex items-center gap-2 mb-3" style={{ fontFamily: "'Bebas Neue', sans-serif", color: "#fff", letterSpacing: "0.08em", fontSize: "1.5rem" }}>
+            <div className="flex items-center gap-2 mb-3" style={{ fontFamily: "var(--font-bebas), sans-serif", color: "#fff", letterSpacing: "0.08em", fontSize: "1.5rem" }}>
               <Wine size={18} style={{ color: ACID_GREEN }} />
               Čůčobraní
             </div>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.82rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.65, maxWidth: "240px" }}>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.82rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.65, maxWidth: "240px" }}>
               Každoroční satirická soutěž domácích ovocných vín. Od roku 1989. Machovsko, Žďár nad Metují.
             </p>
           </div>
 
           <div>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "1rem" }}>Navigace</p>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "1rem" }}>Navigace</p>
             <ul className="flex flex-col gap-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
@@ -47,7 +47,7 @@ export function Footer() {
                     onClick={() => handleNav(link.href)}
                     style={{
                       color: "rgba(255,255,255,0.5)",
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "var(--font-inter), sans-serif",
                       fontSize: "0.875rem",
                       background: "transparent",
                       border: "none",
@@ -66,7 +66,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "1rem" }}>Kontakt</p>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "1rem" }}>Kontakt</p>
             <a
               href="mailto:honza.tyc@gmail.com"
               style={{
@@ -74,7 +74,7 @@ export function Footer() {
                 alignItems: "center",
                 gap: "0.5rem",
                 color: ACID_GREEN,
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "0.875rem",
                 textDecoration: "none",
                 marginBottom: "0.5rem",
@@ -86,7 +86,7 @@ export function Footer() {
               <Mail size={14} />
               honza.tyc@gmail.com
             </a>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.3)", lineHeight: 1.5 }}>
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.3)", lineHeight: 1.5 }}>
               Fotografie, připomínky,
               <br />
               nápady k webu.
@@ -95,8 +95,8 @@ export function Footer() {
         </div>
 
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1.5rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", color: "rgba(255,255,255,0.2)" }}>© 2025 Čůčobraní · Žďár nad Metují · Machovsko</p>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", color: "rgba(255,255,255,0.15)" }}>Akce organizovaná pro radost, nikoli pro zisk 🍷</p>
+          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", color: "rgba(255,255,255,0.2)" }}>© 2025 Čůčobraní · Žďár nad Metují · Machovsko</p>
+          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.78rem", color: "rgba(255,255,255,0.15)" }}>Akce organizovaná pro radost, nikoli pro zisk 🍷</p>
         </div>
       </div>
     </footer>
