@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { DARK_WINE } from "@/lib/theme";
 import { YearForm } from "../YearForm";
+import { YearResultsForm } from "../YearResultsForm";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -26,6 +27,11 @@ export default async function AdminYearEditPage({ params }: PageProps) {
     edition: year.edition ?? year.name ?? "",
     title: year.title ?? year.name ?? "",
     status: (year.status as "draft" | "publikováno") ?? "draft",
+    program_title: year.program_title ?? "",
+    program_author: year.program_author ?? "",
+    program_description: year.program_description ?? "",
+    program_image_url: year.program_image_url ?? "",
+    program_pdf_url: year.program_pdf_url ?? "",
   };
 
   return (
@@ -45,6 +51,21 @@ export default async function AdminYearEditPage({ params }: PageProps) {
         {year.year ?? year.title ?? year.name ?? id}
       </p>
       <YearForm id={id} initial={initial} />
+
+      <div className="mt-10">
+        <h2
+          className="mb-4"
+          style={{
+            fontFamily: "var(--font-bebas), sans-serif",
+            fontSize: "1.5rem",
+            color: DARK_WINE,
+            letterSpacing: "0.04em",
+          }}
+        >
+          Výsledky soutěže
+        </h2>
+        <YearResultsForm yearId={id} />
+      </div>
     </div>
   );
 }

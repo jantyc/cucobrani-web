@@ -10,15 +10,14 @@ create table if not exists public.upcoming_event (
   updated_at timestamptz default now()
 );
 
--- Jediný řádek – vložíme výchozí
+-- Jediný řádek – vložíme výchozí jen pokud tabulka je prázdná (idempotentní)
 insert into public.upcoming_event (id, text, location, "datetime")
-values (
+select
   '00000000-0000-0000-0000-000000000001'::uuid,
   'XXXVIII. ROČNÍK ČŮČOBRANÍ SE KONÁ:',
   'Žďár nad Metují',
   '30. ledna 2027 od 16:00'
-)
-on conflict (id) do nothing;
+where not exists (select 1 from public.upcoming_event limit 1);
 
 alter table public.upcoming_event enable row level security;
 create policy "upcoming_event_select" on public.upcoming_event for select using (true);
