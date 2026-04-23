@@ -1,0 +1,32 @@
+---
+description: Jak testovat novou funkcionalitu v adminu i na veřejném webu
+alwaysApply: true
+---
+
+# Testování nové funkcionality
+
+Při každé nové nebo upravené funkcionalitě (zejména v `/app/admin` a veřejných stránkách) postupuj takto:
+
+- **Identifikuj hlavní flow**
+  - Jaký je primární use-case (např. „uložit nadcházející ročník“, „přidat ročník“, „upload fotky“, „uložit výsledky“)?
+  - Jaké jsou vstupy (formularové hodnoty, soubory) a jaký výsledek čekáme (stav v DB, UI)?
+
+- **Otestuj CRUD / základní scénáře**
+  - Uložení nové hodnoty a její opětovné načtení v UI (form se předvyplní správně).
+  - Úprava existující hodnoty (žádné duplicate key / constraint chyby).
+  - U mazacích akcí zkontroluj, že:
+    - UI řádek zmizí,
+    - související data (např. fotka ve Storage) jsou smazána nebo zůstávají podle záměru.
+
+- **Zachytávání chyb**
+  - V client komponentách vždy zobrazuj případnou chybu z Supabase v UI (stav `error`, alert / banner).
+  - V server komponentách zacházej s chybou buď jako s `notFound()` nebo zobraz vhodnou fallback informaci.
+
+- **Technická kontrola**
+  - Po úpravách spusť alespoň `npm run lint` na dotčených souborech nebo celé appce, pokud je to rychlé.
+  - Zkontroluj, že se při buildu / renderu nevolají funkce, které vyžadují chybějící env proměnné.
+
+- **Dokumentace změn**
+  - U smysluplné práce vždy aktualizuj `docs/working-memory.md` (Recent changes, případně Notes for next session).
+  - Pokud jde o architektonické rozhodnutí, přidej krátký záznam do `docs/decisions.md`.
+

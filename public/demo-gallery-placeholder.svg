@@ -1,0 +1,19 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3A0F16"/>
+      <stop offset="100%" stop-color="#7A1E2C"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect x="60" y="60" width="680" height="480" rx="24" ry="24" fill="none" stroke="#A7D129" stroke-width="4"/>
+  <text x="400" y="260" text-anchor="middle" font-family="Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-size="32" fill="#F6F4F1" letter-spacing="4">
+    nOBRANÍ  DEMO GALERIE
+  </text>
+  <text x="400" y="320" text-anchor="middle" font-family="Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-size="20" fill="#F6F4F1" opacity="0.8">
+    Nahrate vlastními fotkami z roníku
+  </text>
+</svg>
+
