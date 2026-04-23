@@ -99,7 +99,7 @@ export function Location({ upcomingDatetime }: LocationProps) {
 
           <div style={{ borderRadius: "14px", overflow: "hidden", aspectRatio: "4/3", position: "relative" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG_LANDSCAPE} alt="Místo konání Čůčobraní" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <img src={IMG_LANDSCAPE} alt="Místo konání Čůčobraní" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(0,0,0,0.6)", borderRadius: "99px", padding: "0.4rem 1rem" }}>
               <MapPin size={12} style={{ color: ACID_GREEN }} />
               <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: "#fff" }}>Žďár nad Metují, Machovsko</span>

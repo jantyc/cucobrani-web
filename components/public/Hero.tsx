@@ -21,9 +21,15 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: DARK_WINE }}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${HERO_IMG})` }}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={HERO_IMG}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        loading="eager"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover"
       />
       <div
         className="absolute inset-0"

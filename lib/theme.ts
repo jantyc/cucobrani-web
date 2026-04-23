@@ -5,4 +5,4 @@ export const ACID_GREEN = "#A7D129";
 export const LIGHT_BG = "#F6F4F1";
 
 export const HERO_IMG =
-  "https://images.unsplash.com/photo-1682652476586-1d7dce119f3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920";
+  "/hero-bg.webp";

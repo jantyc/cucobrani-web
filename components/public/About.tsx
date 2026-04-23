@@ -197,6 +197,8 @@ export function About() {
               <img
                 src={IMG_TASTING}
                 alt="Degustace vín"
+                loading="lazy"
+                decoding="async"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
@@ -209,6 +211,8 @@ export function About() {
                 <img
                   src={IMG_BOTTLES}
                   alt="Domácí vína"
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </div>
