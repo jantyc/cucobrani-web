@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { LIGHT_BG, WINE_RED, DARK_WINE } from "@/lib/theme";
 import { WhiteWineIcon } from "./WhiteWineIcon";
 
@@ -194,12 +193,11 @@ export function About() {
               className="rounded-lg overflow-hidden"
               style={{ aspectRatio: "4/3", position: "relative" }}
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={IMG_TASTING}
                 alt="Degustace vín"
-                fill
-                sizes="(min-width: 1024px) 33vw, 100vw"
-                style={{ objectFit: "cover" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -207,12 +205,11 @@ export function About() {
                 className="rounded-lg overflow-hidden"
                 style={{ aspectRatio: "1/1", position: "relative" }}
               >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={IMG_BOTTLES}
                   alt="Domácí vína"
-                  fill
-                  sizes="(min-width: 1024px) 20vw, 50vw"
-                  style={{ objectFit: "cover" }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </div>
               <div

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { X, ChevronDown, ChevronUp, Camera, FileText, ExternalLink, Scroll } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
 import type { YearData } from "@/lib/year-data";
@@ -20,12 +19,11 @@ const LIGHT_BG = "#F6F4F1";
 function WhiteWineIconSmall() {
   return (
     <span style={{ display: "inline-block", lineHeight: 1, verticalAlign: "middle" }}>
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src="/white-wine-glass.webp"
         alt=""
         role="presentation"
-        width={32}
-        height={32}
         style={{
           height: "1rem",
           width: "auto",
