@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { ChevronDown, ChevronUp, FileText, X, Camera } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
 import type { YearData, YearTheme } from "@/lib/year-data";
@@ -587,12 +586,11 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                         border: "1px solid rgba(255,255,255,0.07)",
                       }}
                     >
-                      <Image
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
                         src={src}
                         alt={`Foto ${i + 1}`}
-                        fill
-                        sizes="(min-width: 768px) 25vw, 50vw"
-                        style={{ objectFit: "cover", display: "block", transition: "transform 0.25s, filter 0.25s", filter: "brightness(0.85)" }}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.25s, filter 0.25s", filter: "brightness(0.85)" }}
                         onMouseEnter={(e) => {
                           (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
                           (e.currentTarget as HTMLElement).style.filter = "brightness(1)";

@@ -598,14 +598,13 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
                     tabIndex={0}
                     onClick={() => setLightboxIdx(i)}
                     onKeyDown={(e) => e.key === "Enter" && setLightboxIdx(i)}
-                    style={{ aspectRatio: "1", borderRadius: "8px", overflow: "hidden", cursor: "pointer", position: "relative" }}
+                    style={{ aspectRatio: "1", borderRadius: "8px", overflow: "hidden", cursor: "pointer" }}
                   >
-                    <Image
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                       src={img}
                       alt=""
-                      fill
-                      sizes="(min-width: 640px) 33vw, 50vw"
-                      style={{ objectFit: "cover", transition: "transform 0.2s" }}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.2s" }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.05)")}
                       onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
                     />
