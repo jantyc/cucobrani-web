@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    unoptimized: true,
+  },
   webpack: (config, { dev }) => {
     if (dev) {
       // Velké lokální složky (data/, figma exporty) jinak zaplní file watchery → EMFILE
