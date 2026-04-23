@@ -15,7 +15,7 @@ export default function NotFoundPage() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/404-background.jpg')",
+          backgroundImage: "url('/404-background.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           zIndex: 0,

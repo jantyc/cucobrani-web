@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { DARK_WINE, WINE_RED } from "@/lib/theme";
@@ -9,6 +9,8 @@ import { formatPlaceWithTies } from "@/lib/results-ranking";
 interface PageProps {
   params: Promise<{ id: string }>;
 }
+
+export const revalidate = 300;
 
 type ArchiveWineRow = {
   position: number;
@@ -40,7 +42,7 @@ function normalizeArchiveWineRows(data: unknown): ArchiveWineRow[] {
 }
 
 async function fetchWineRowsForArchive(
-  supabase: Awaited<ReturnType<typeof createClient>>,
+  supabase: ReturnType<typeof createPublicClient>,
   table: "year_results_white" | "year_results_red",
   yearId: string
 ) {
@@ -70,7 +72,7 @@ export async function generateMetadata({ params }: PageProps) {
       description: "Přehled prehistorických ročníků Čůčobraní (1988-2001).",
     };
   }
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("years").select("year, edition, title, name").eq("id", id).single();
   const title = data?.title || data?.name || (data?.year ? `Ročník ${data.year}` : "Ročník");
   return {
@@ -126,7 +128,7 @@ export default async function YearPage({ params }: PageProps) {
     );
   }
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
 
   const { data: year, error } = await supabase
     .from("years")

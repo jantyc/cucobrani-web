@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN, HERO_IMG } from "@/lib/theme";
 
@@ -21,9 +22,13 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: DARK_WINE }}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${HERO_IMG})` }}
+      <Image
+        src={HERO_IMG}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        style={{ objectFit: "cover" }}
       />
       <div
         className="absolute inset-0"

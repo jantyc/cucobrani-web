@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { Search, LayoutGrid, List, Camera, Trophy } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN, LIGHT_BG } from "@/lib/theme";
 import type { YearData } from "@/lib/year-data";
-import { YearDetail } from "./YearDetail";
 import {
   PREHISTORY_CARD_ID,
   PREHISTORY_LABEL,
@@ -13,6 +13,7 @@ import {
 } from "@/lib/prehistory";
 
 type ViewMode = "grid" | "timeline";
+const YearDetail = dynamic(() => import("./YearDetail").then((m) => m.YearDetail));
 
 const QUEEN_WINE_FALLBACK = "Název vzorku nedochován";
 
@@ -147,8 +148,30 @@ export function Archive({ years }: ArchiveProps) {
   const [search, setSearch] = useState("");
   const [view, setView] = useState<ViewMode>("grid");
   const [selectedYear, setSelectedYear] = useState<YearData | null>(null);
+  const [loadingYearId, setLoadingYearId] = useState<string | null>(null);
+  const [detailError, setDetailError] = useState<string | null>(null);
   const [showAllYears, setShowAllYears] = useState(false);
   const [showAllButtonHovered, setShowAllButtonHovered] = useState(false);
+
+  async function openYearDetail(year: YearData) {
+    if (year.id === PREHISTORY_CARD_ID) {
+      setSelectedYear(year);
+      setDetailError(null);
+      return;
+    }
+    setDetailError(null);
+    setLoadingYearId(year.id);
+    try {
+      const res = await fetch(`/api/years/${year.id}`, { cache: "force-cache" });
+      if (!res.ok) throw new Error("Detail ročníku se nepodařilo načíst.");
+      const full = (await res.json()) as YearData;
+      setSelectedYear(full);
+    } catch (e) {
+      setDetailError(e instanceof Error ? e.message : "Detail ročníku se nepodařilo načíst.");
+    } finally {
+      setLoadingYearId(null);
+    }
+  }
 
   const yearsWithPrehistory = useMemo(() => {
     const withoutPrehistory = years.filter((y) => !isPrehistoryYear(y.year));
@@ -276,7 +299,7 @@ export function Archive({ years }: ArchiveProps) {
         {view === "grid" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {visibleYears.map((y) => (
-              <YearCard key={y.id} year={y} onClick={() => setSelectedYear(y)} />
+              <YearCard key={y.id} year={y} onClick={() => void openYearDetail(y)} />
             ))}
           </div>
         )}
@@ -284,7 +307,7 @@ export function Archive({ years }: ArchiveProps) {
         {view === "timeline" && (
           <div className="max-w-2xl">
             {visibleYears.map((y) => (
-              <TimelineItem key={y.id} year={y} onClick={() => setSelectedYear(y)} />
+              <TimelineItem key={y.id} year={y} onClick={() => void openYearDetail(y)} />
             ))}
           </div>
         )}
@@ -343,6 +366,11 @@ export function Archive({ years }: ArchiveProps) {
           <div style={{ textAlign: "center", padding: "4rem 0" }}>
             <p style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "2rem", color: "#ccc", letterSpacing: "0.06em" }}>Nic nenalezeno</p>
             <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem", color: "#aaa", marginTop: "0.5rem" }}>Zkuste jiný vyhledávací výraz nebo filtr.</p>
+          </div>
+        )}
+        {(loadingYearId || detailError) && (
+          <div style={{ marginTop: "1rem", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.85rem", color: detailError ? "#a33030" : "#666" }}>
+            {loadingYearId ? "Načítám detail ročníku…" : detailError}
           </div>
         )}
       </div>

@@ -1,13 +1,25 @@
-import { createClient } from "@/lib/supabase/server";
+import dynamic from "next/dynamic";
+import { createPublicClient } from "@/lib/supabase/public";
 import { fetchYearsWithData } from "@/lib/fetch-years";
 import { Navbar } from "@/components/public/Navbar";
 import { Hero } from "@/components/public/Hero";
 import { About } from "@/components/public/About";
-import { CurrentEdition } from "@/components/public/CurrentEdition";
-import { Archive } from "@/components/public/Archive";
-import { Location } from "@/components/public/Location";
-import { Contact } from "@/components/public/Contact";
 import { Footer } from "@/components/public/Footer";
+
+const CurrentEdition = dynamic(() =>
+  import("@/components/public/CurrentEdition").then((m) => m.CurrentEdition)
+);
+const Archive = dynamic(() =>
+  import("@/components/public/Archive").then((m) => m.Archive)
+);
+const Location = dynamic(() =>
+  import("@/components/public/Location").then((m) => m.Location)
+);
+const Contact = dynamic(() =>
+  import("@/components/public/Contact").then((m) => m.Contact)
+);
+
+export const revalidate = 300;
 
 export default async function HomePage() {
   let upcomingText = "XXXVIII. ROČNÍK ČŮČOBRANÍ SE KONÁ:";
@@ -16,7 +28,7 @@ export default async function HomePage() {
   let yearsWithData: Awaited<ReturnType<typeof fetchYearsWithData>> = [];
 
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 
     try {
@@ -42,6 +54,12 @@ export default async function HomePage() {
   }
 
   const latestYear = yearsWithData[0] ?? null;
+  const archiveYears = yearsWithData.map((y) => ({
+    ...y,
+    // Full detail se načítá až při otevření modalu (API), aby homepage posílala menší payload.
+    results: { white: [], red: [] },
+    gallery: [],
+  }));
 
   return (
     <div style={{ fontFamily: "var(--font-inter), sans-serif", backgroundColor: "#F6F4F1", minHeight: "100vh" }}>
@@ -53,7 +71,7 @@ export default async function HomePage() {
       />
       <About />
       <CurrentEdition latestYear={latestYear} />
-      <Archive years={yearsWithData} />
+      <Archive years={archiveYears} />
       <Location upcomingDatetime={upcomingDatetime} />
       <Contact />
       <Footer />

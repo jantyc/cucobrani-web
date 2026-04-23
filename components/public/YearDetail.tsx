@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { X, ChevronDown, ChevronUp, Camera, FileText, ExternalLink, Scroll } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
 import type { YearData } from "@/lib/year-data";
@@ -19,10 +20,12 @@ const LIGHT_BG = "#F6F4F1";
 function WhiteWineIconSmall() {
   return (
     <span style={{ display: "inline-block", lineHeight: 1, verticalAlign: "middle" }}>
-      <img
-        src="/white-wine-glass.png"
+      <Image
+        src="/white-wine-glass.webp"
         alt=""
         role="presentation"
+        width={32}
+        height={32}
         style={{
           height: "1rem",
           width: "auto",
@@ -595,13 +598,14 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
                     tabIndex={0}
                     onClick={() => setLightboxIdx(i)}
                     onKeyDown={(e) => e.key === "Enter" && setLightboxIdx(i)}
-                    style={{ aspectRatio: "1", borderRadius: "8px", overflow: "hidden", cursor: "pointer" }}
+                    style={{ aspectRatio: "1", borderRadius: "8px", overflow: "hidden", cursor: "pointer", position: "relative" }}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={img}
                       alt=""
-                      style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.2s" }}
+                      fill
+                      sizes="(min-width: 640px) 33vw, 50vw"
+                      style={{ objectFit: "cover", transition: "transform 0.2s" }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.05)")}
                       onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
                     />
