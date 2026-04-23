@@ -18,9 +18,51 @@ interface YearGalleryFormProps {
   yearId: string;
 }
 
-function getExtension(filename: string): string {
-  const m = filename.match(/\.(jpe?g|png|webp|gif)$/i);
-  return m ? m[1].toLowerCase() : "jpg";
+function getBaseName(filename: string): string {
+  return filename.replace(/\.[^/.]+$/, "");
+}
+
+async function convertToWebp(file: File, quality = 0.82): Promise<File> {
+  if (file.type === "image/webp") {
+    return file;
+  }
+
+  const objectUrl = URL.createObjectURL(file);
+  const img = new Image();
+  img.decoding = "async";
+  img.src = objectUrl;
+
+  try {
+    await img.decode();
+  } catch {
+    URL.revokeObjectURL(objectUrl);
+    throw new Error(`Soubor ${file.name} se nepodařilo načíst jako obrázek.`);
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    URL.revokeObjectURL(objectUrl);
+    throw new Error("Nepodařilo se vytvořit 2D canvas pro převod obrázku.");
+  }
+
+  ctx.drawImage(img, 0, 0);
+  URL.revokeObjectURL(objectUrl);
+
+  const blob = await new Promise<Blob | null>((resolve) => {
+    canvas.toBlob(resolve, "image/webp", quality);
+  });
+
+  if (!blob) {
+    throw new Error(`Soubor ${file.name} se nepodařilo převést do WebP.`);
+  }
+
+  return new File([blob], `${getBaseName(file.name)}.webp`, {
+    type: "image/webp",
+    lastModified: Date.now(),
+  });
 }
 
 export function YearGalleryForm({ yearId }: YearGalleryFormProps) {
@@ -65,9 +107,21 @@ export function YearGalleryForm({ yearId }: YearGalleryFormProps) {
     let order = nextOrder;
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const ext = getExtension(file.name);
-      const path = `${yearId}/${crypto.randomUUID()}.${ext}`;
-      const { error: uploadErr } = await supabase.storage.from(BUCKET).upload(path, file, { upsert: false });
+      let webpFile: File;
+      try {
+        webpFile = await convertToWebp(file);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Nepodařilo se převést obrázek do WebP.");
+        setUploading(false);
+        e.target.value = "";
+        return;
+      }
+
+      const path = `${yearId}/${crypto.randomUUID()}.webp`;
+      const { error: uploadErr } = await supabase.storage.from(BUCKET).upload(path, webpFile, {
+        upsert: false,
+        contentType: "image/webp",
+      });
       if (uploadErr) {
         if (uploadErr.message?.toLowerCase().includes("bucket not found")) {
           setError(
@@ -193,14 +247,14 @@ export function YearGalleryForm({ yearId }: YearGalleryFormProps) {
           {uploading ? "Nahrávám…" : "Přidat fotky"}
           <input
             type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif"
+            accept="image/jpeg,image/png,image/webp"
             multiple
             className="sr-only"
             disabled={uploading}
             onChange={handleUpload}
           />
         </label>
-        <span className="text-sm text-[#666]">JPEG, PNG, WebP, GIF, max 5 MB</span>
+        <span className="text-sm text-[#666]">JPEG/PNG/WebP, při uploadu se uloží jako WebP (max 5 MB)</span>
       </div>
 
       <details className="mt-2">
@@ -225,7 +279,7 @@ export function YearGalleryForm({ yearId }: YearGalleryFormProps) {
             {importing ? "Importuji…" : "Importovat URL do galerie"}
           </button>
           <p className="text-xs text-[#777]">
-            URL se uloží přímo do databáze. Pro nové ročníky sem můžeš vložit seznam fotek z existujícího webu a galerie se doplní najednou.
+            URL se uloží přímo do databáze. Tyto externí odkazy se automaticky nepřevádí do WebP.
           </p>
         </div>
       </details>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:gallery-webp": "node scripts/migrate-gallery-to-webp.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
@@ -24,6 +25,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.35",
     "postcss": "^8.5.8",
+    "sharp": "^0.34.5",
     "supabase": "^1.200.3",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.6.3"
