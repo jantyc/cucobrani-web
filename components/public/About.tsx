@@ -1,10 +1,8 @@
 import { LIGHT_BG, WINE_RED, DARK_WINE } from "@/lib/theme";
 import { WhiteWineIcon } from "./WhiteWineIcon";
 
-const IMG_TASTING =
-  "https://images.unsplash.com/photo-1616688921374-d941709f7263?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900";
-const IMG_BOTTLES =
-  "https://images.unsplash.com/photo-1738696782363-5944608b10f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900";
+const IMG_TASTING = "/about-cuco-rect.webp";
+const IMG_BOTTLES = "/about-cuco-square.webp";
 
 const categories = [
   { label: "Bílá ovocná vína", whiteIcon: true },
@@ -199,7 +197,7 @@ export function About() {
                 alt="Degustace vín"
                 loading="lazy"
                 decoding="async"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "18% center" }}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -213,7 +211,7 @@ export function About() {
                   alt="Domácí vína"
                   loading="lazy"
                   decoding="async"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }}
                 />
               </div>
               <div
