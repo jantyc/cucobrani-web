@@ -243,10 +243,11 @@ function AccordionResult({ title, entries }: { title: React.ReactNode; entries: 
 
 interface YearDetailProps {
   year: YearData;
+  isDetailLoading?: boolean;
   onClose: () => void;
 }
 
-export function YearDetail({ year, onClose }: YearDetailProps) {
+export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetailProps) {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [showProgramModal, setShowProgramModal] = useState(false);
   const [showAllGalleryPhotos, setShowAllGalleryPhotos] = useState(false);
@@ -275,6 +276,34 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
   const galleryPreviewCount = 6;
   const visibleGallery = showAllGalleryPhotos ? year.gallery : year.gallery.slice(0, galleryPreviewCount);
   const hiddenGalleryCount = Math.max(0, year.gallery.length - galleryPreviewCount);
+
+  useEffect(() => {
+    if (showAllGalleryPhotos) return;
+    if (year.gallery.length <= galleryPreviewCount) return;
+
+    // Warm hidden gallery images only after modal is open.
+    const hidden = year.gallery.slice(galleryPreviewCount);
+    const run = () => {
+      for (const src of hidden) {
+        const img = new Image();
+        img.src = src;
+      }
+    };
+
+    const delayed = window.setTimeout(() => {
+      if ("requestIdleCallback" in window) {
+        (
+          window as Window & {
+            requestIdleCallback?: (callback: () => void, opts?: { timeout: number }) => number;
+          }
+        ).requestIdleCallback?.(run, { timeout: 2000 });
+      } else {
+        run();
+      }
+    }, 350);
+
+    return () => window.clearTimeout(delayed);
+  }, [showAllGalleryPhotos, year.gallery]);
 
   return (
     <>
@@ -356,6 +385,18 @@ export function YearDetail({ year, onClose }: YearDetailProps) {
             >
               {year.description}
             </p>
+            {isDetailLoading && (
+              <p
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "0.8rem",
+                  color: "rgba(255,255,255,0.85)",
+                  marginTop: "0.45rem",
+                }}
+              >
+                Načítám kompletní detail ročníku...
+              </p>
+            )}
             {isCompletelySparse && (
               <p
                 style={{

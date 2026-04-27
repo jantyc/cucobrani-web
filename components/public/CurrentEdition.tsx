@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronUp, FileText, X, Camera, ChevronLeft, ChevronRight } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
 import type { YearData, YearTheme } from "@/lib/year-data";
@@ -363,6 +363,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [showProgramModal, setShowProgramModal] = useState(false);
+  const gallerySectionRef = useRef<HTMLDivElement | null>(null);
 
   const PREVIEW_COUNT = 4;
   const gallery = latestYear?.gallery ?? [];
@@ -374,6 +375,50 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
       latestYear.winners.queenOfCellar ||
       latestYear.winners.audience ||
       latestYear.winners.worst);
+
+  useEffect(() => {
+    if (!latestYear || showAll) return;
+    if (gallery.length <= PREVIEW_COUNT) return;
+    if (!gallerySectionRef.current) return;
+
+    const hidden = gallery.slice(PREVIEW_COUNT);
+    let delayed: number | null = null;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.disconnect();
+
+          const run = () => {
+            for (const src of hidden) {
+              const img = new Image();
+              img.src = src;
+            }
+          };
+
+          delayed = window.setTimeout(() => {
+            if ("requestIdleCallback" in window) {
+              (
+                window as Window & {
+                  requestIdleCallback?: (callback: () => void, opts?: { timeout: number }) => number;
+                }
+              ).requestIdleCallback?.(run, { timeout: 2000 });
+            } else {
+              run();
+            }
+          }, 250);
+          break;
+        }
+      },
+      { rootMargin: "300px 0px" }
+    );
+
+    observer.observe(gallerySectionRef.current);
+    return () => {
+      observer.disconnect();
+      if (delayed !== null) window.clearTimeout(delayed);
+    };
+  }, [gallery, latestYear, showAll]);
 
   return (
     <section id="aktualni-rocnik" style={{ background: DARK_WINE }} className="py-24 md:py-32">
@@ -570,7 +615,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
               )}
             </div>
 
-            <div className="mt-10">
+            <div className="mt-10" ref={gallerySectionRef}>
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
                   <span style={{ width: "28px", height: "2px", backgroundColor: ACID_GREEN, display: "inline-block", borderRadius: "2px" }} />

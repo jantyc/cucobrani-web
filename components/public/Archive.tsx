@@ -178,6 +178,7 @@ export function Archive({ years }: ArchiveProps) {
   const [selectedYear, setSelectedYear] = useState<YearData | null>(null);
   const [loadingYearId, setLoadingYearId] = useState<string | null>(null);
   const [detailError, setDetailError] = useState<string | null>(null);
+  const [isDetailLoading, setIsDetailLoading] = useState(false);
   const [showAllYears, setShowAllYears] = useState(false);
   const [showAllButtonHovered, setShowAllButtonHovered] = useState(false);
   const detailCacheRef = useRef(new Map<string, YearData>());
@@ -202,15 +203,21 @@ export function Archive({ years }: ArchiveProps) {
     if (year.id === PREHISTORY_CARD_ID) {
       setSelectedYear(year);
       setDetailError(null);
+      setIsDetailLoading(false);
       return;
     }
     const cached = detailCacheRef.current.get(year.id);
     if (cached) {
       setSelectedYear(cached);
       setDetailError(null);
+      setIsDetailLoading(false);
       return;
     }
+    // Open modal immediately with summary data for snappy UX,
+    // full detail resolves in the background.
+    setSelectedYear(year);
     setDetailError(null);
+    setIsDetailLoading(true);
     setLoadingYearId(year.id);
     try {
       const res = await fetch(`/api/years/${year.id}`, { cache: "force-cache" });
@@ -222,6 +229,7 @@ export function Archive({ years }: ArchiveProps) {
       setDetailError(e instanceof Error ? e.message : "Detail ročníku se nepodařilo načíst.");
     } finally {
       setLoadingYearId(null);
+      setIsDetailLoading(false);
     }
   }
 
@@ -471,7 +479,16 @@ export function Archive({ years }: ArchiveProps) {
         )}
       </div>
 
-      {selectedYear && <YearDetail year={selectedYear} onClose={() => setSelectedYear(null)} />}
+      {selectedYear && (
+        <YearDetail
+          year={selectedYear}
+          isDetailLoading={isDetailLoading}
+          onClose={() => {
+            setSelectedYear(null);
+            setIsDetailLoading(false);
+          }}
+        />
+      )}
     </section>
   );
 }
