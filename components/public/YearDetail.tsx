@@ -37,6 +37,43 @@ function WhiteWineIconSmall() {
 }
 const PROGRAM_BG = "#F6F4F1";
 
+function SectionLoading({ text }: { text: string }) {
+  return (
+    <div
+      style={{
+        background: LIGHT_BG,
+        borderRadius: "8px",
+        border: "1px solid rgba(0,0,0,0.08)",
+        padding: "1rem 1.1rem",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.6rem",
+      }}
+    >
+      <span
+        style={{
+          width: "0.9rem",
+          height: "0.9rem",
+          borderRadius: "50%",
+          border: `2px solid rgba(122,30,44,0.2)`,
+          borderTopColor: WINE_RED,
+          animation: "cuco-spin 0.8s linear infinite",
+          display: "inline-block",
+        }}
+      />
+      <span
+        style={{
+          fontFamily: "var(--font-inter), sans-serif",
+          fontSize: "0.85rem",
+          color: "#666",
+        }}
+      >
+        {text}
+      </span>
+    </div>
+  );
+}
+
 function Lightbox({ images, initial, onClose }: { images: string[]; initial: number; onClose: () => void }) {
   const [idx, setIdx] = useState(initial);
 
@@ -312,6 +349,12 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
         style={{ background: "rgba(0,0,0,0.6)" }}
         onClick={onClose}
       >
+        <style>{`
+          @keyframes cuco-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
         <div
           onClick={(e) => e.stopPropagation()}
           onPointerDown={(e) => e.stopPropagation()}
@@ -592,7 +635,11 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
             </div>
 
             <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, fontWeight: 700, marginBottom: "0.25rem" }}>Kompletní výsledky</h3>
-            {!hasAnyResultsPieces ? (
+            {isDetailLoading && !hasAnyResultsPieces ? (
+              <div style={{ marginBottom: "1.2rem" }}>
+                <SectionLoading text="Načítám kompletní výsledky..." />
+              </div>
+            ) : !hasAnyResultsPieces ? (
               <p
                 style={{
                   fontFamily: "var(--font-inter), sans-serif",
@@ -632,7 +679,11 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
             )}
 
             <h3 style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "1.3rem", letterSpacing: "0.06em", color: DARK_WINE, marginTop: "1.75rem", marginBottom: "1rem" }}>Fotogalerie</h3>
-            {!hasGallery ? (
+            {isDetailLoading && !hasGallery ? (
+              <div style={{ marginBottom: "1rem" }}>
+                <SectionLoading text="Načítám fotky z ročníku..." />
+              </div>
+            ) : !hasGallery ? (
               <div style={{ background: LIGHT_BG, borderRadius: "8px", padding: "2rem", textAlign: "center", color: "#888" }}>
                 <Camera size={28} style={{ margin: "0 auto 0.75rem", color: "#ccc" }} />
                 <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.9rem" }}>
@@ -662,6 +713,8 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
                     <img
                       src={img}
                       alt=""
+                      loading={i < 6 ? "eager" : "lazy"}
+                      decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.2s" }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.05)")}
                       onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}

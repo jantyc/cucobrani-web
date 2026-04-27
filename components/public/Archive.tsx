@@ -223,6 +223,13 @@ export function Archive({ years }: ArchiveProps) {
       const res = await fetch(`/api/years/${year.id}`, { cache: "force-cache" });
       if (!res.ok) throw new Error("Detail ročníku se nepodařilo načíst.");
       const full = (await res.json()) as YearData;
+
+      // Warm first visible gallery images before rendering them in modal.
+      for (const src of full.gallery.slice(0, 6)) {
+        const img = new Image();
+        img.src = src;
+      }
+
       detailCacheRef.current.set(year.id, full);
       setSelectedYear(full);
     } catch (e) {
