@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: "Čůčobraní – soutěž domácích ovocných vín | Žďár nad Metují",
   description:
     "Tradiční setkání amatérských výrobců ovocných vín. Soutěž o Královnu sklepa, odborná porota, divácká soutěž. Od roku 1988, Machovsko–Policko.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+  },
   openGraph: {
     title: "Čůčobraní – soutěž domácích ovocných vín",
     description: "Tradiční setkání amatérských výrobců ovocných vín. Žďár nad Metují.",

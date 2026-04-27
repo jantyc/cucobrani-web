@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Search, LayoutGrid, List, Camera, Trophy } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN, LIGHT_BG } from "@/lib/theme";
@@ -22,7 +22,15 @@ function queenWineLabel(wine: string | undefined): string {
   return t ? t : QUEEN_WINE_FALLBACK;
 }
 
-function YearCard({ year, onClick }: { year: YearData; onClick: () => void }) {
+function YearCard({
+  year,
+  onClick,
+  onPrefetch,
+}: {
+  year: YearData;
+  onClick: () => void;
+  onPrefetch: () => void;
+}) {
   const [hovered, setHovered] = useState(false);
   const isPrehistory = year.id === PREHISTORY_CARD_ID;
   const isBasicRecord =
@@ -33,8 +41,12 @@ function YearCard({ year, onClick }: { year: YearData; onClick: () => void }) {
       tabIndex={0}
       onClick={onClick}
       onKeyDown={(e) => e.key === "Enter" && onClick()}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => {
+        setHovered(true);
+        onPrefetch();
+      }}
       onMouseLeave={() => setHovered(false)}
+      onFocus={onPrefetch}
       style={{
         background: hovered ? "#fff" : "#FAF8F6",
         border: `1px solid ${hovered ? WINE_RED : "rgba(0,0,0,0.08)"}`,
@@ -107,10 +119,26 @@ function YearCard({ year, onClick }: { year: YearData; onClick: () => void }) {
   );
 }
 
-function TimelineItem({ year, onClick }: { year: YearData; onClick: () => void }) {
+function TimelineItem({
+  year,
+  onClick,
+  onPrefetch,
+}: {
+  year: YearData;
+  onClick: () => void;
+  onPrefetch: () => void;
+}) {
   const isPrehistory = year.id === PREHISTORY_CARD_ID;
   return (
-    <div className="flex gap-6 group cursor-pointer pb-8" role="button" tabIndex={0} onClick={onClick} onKeyDown={(e) => e.key === "Enter" && onClick()}>
+    <div
+      className="flex gap-6 group cursor-pointer pb-8"
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      onMouseEnter={onPrefetch}
+      onFocus={onPrefetch}
+    >
       <div className="flex flex-col items-center">
         <div style={{ width: "14px", height: "14px", borderRadius: "50%", backgroundColor: WINE_RED, border: "3px solid #fff", boxShadow: `0 0 0 2px ${WINE_RED}`, flexShrink: 0, marginTop: "4px" }} />
         <div style={{ width: "2px", flexGrow: 1, backgroundColor: "rgba(0,0,0,0.08)", minHeight: "60px" }} />
@@ -152,10 +180,33 @@ export function Archive({ years }: ArchiveProps) {
   const [detailError, setDetailError] = useState<string | null>(null);
   const [showAllYears, setShowAllYears] = useState(false);
   const [showAllButtonHovered, setShowAllButtonHovered] = useState(false);
+  const detailCacheRef = useRef(new Map<string, YearData>());
+  const inFlightRef = useRef(new Set<string>());
+
+  async function prefetchYearDetail(yearId: string) {
+    if (!yearId || yearId === PREHISTORY_CARD_ID) return;
+    if (detailCacheRef.current.has(yearId) || inFlightRef.current.has(yearId)) return;
+
+    inFlightRef.current.add(yearId);
+    try {
+      const res = await fetch(`/api/years/${yearId}`, { cache: "force-cache" });
+      if (!res.ok) return;
+      const full = (await res.json()) as YearData;
+      detailCacheRef.current.set(yearId, full);
+    } finally {
+      inFlightRef.current.delete(yearId);
+    }
+  }
 
   async function openYearDetail(year: YearData) {
     if (year.id === PREHISTORY_CARD_ID) {
       setSelectedYear(year);
+      setDetailError(null);
+      return;
+    }
+    const cached = detailCacheRef.current.get(year.id);
+    if (cached) {
+      setSelectedYear(cached);
       setDetailError(null);
       return;
     }
@@ -165,6 +216,7 @@ export function Archive({ years }: ArchiveProps) {
       const res = await fetch(`/api/years/${year.id}`, { cache: "force-cache" });
       if (!res.ok) throw new Error("Detail ročníku se nepodařilo načíst.");
       const full = (await res.json()) as YearData;
+      detailCacheRef.current.set(year.id, full);
       setSelectedYear(full);
     } catch (e) {
       setDetailError(e instanceof Error ? e.message : "Detail ročníku se nepodařilo načíst.");
@@ -209,6 +261,40 @@ export function Archive({ years }: ArchiveProps) {
   const collapsedVisibleCount = view === "timeline" ? 3 : 6;
   const visibleYears = hasSearch || showAllYears ? filtered : filtered.slice(0, collapsedVisibleCount);
   const hiddenCount = Math.max(0, filtered.length - collapsedVisibleCount);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Prefetch only a few visible details, delayed and in idle time,
+    // so first render of homepage remains fast.
+    const candidates = visibleYears
+      .filter((y) => y.id !== PREHISTORY_CARD_ID)
+      .slice(0, 3)
+      .map((y) => y.id);
+    if (!candidates.length) return;
+
+    const run = () => {
+      for (const id of candidates) {
+        void prefetchYearDetail(id);
+      }
+    };
+
+    const delayed = window.setTimeout(() => {
+      if ("requestIdleCallback" in window) {
+        (
+          window as Window & {
+            requestIdleCallback?: (callback: () => void, opts?: { timeout: number }) => number;
+          }
+        ).requestIdleCallback?.(run, { timeout: 1500 });
+      } else {
+        run();
+      }
+    }, 1500);
+
+    return () => {
+      window.clearTimeout(delayed);
+    };
+  }, [visibleYears]);
 
   return (
     <section id="archiv" style={{ backgroundColor: LIGHT_BG }} className="py-24 md:py-32">
@@ -299,7 +385,12 @@ export function Archive({ years }: ArchiveProps) {
         {view === "grid" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {visibleYears.map((y) => (
-              <YearCard key={y.id} year={y} onClick={() => void openYearDetail(y)} />
+              <YearCard
+                key={y.id}
+                year={y}
+                onClick={() => void openYearDetail(y)}
+                onPrefetch={() => void prefetchYearDetail(y.id)}
+              />
             ))}
           </div>
         )}
@@ -307,7 +398,12 @@ export function Archive({ years }: ArchiveProps) {
         {view === "timeline" && (
           <div className="max-w-2xl">
             {visibleYears.map((y) => (
-              <TimelineItem key={y.id} year={y} onClick={() => void openYearDetail(y)} />
+              <TimelineItem
+                key={y.id}
+                year={y}
+                onClick={() => void openYearDetail(y)}
+                onPrefetch={() => void prefetchYearDetail(y.id)}
+              />
             ))}
           </div>
         )}

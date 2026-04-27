@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, ChevronUp, FileText, X, Camera } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronDown, ChevronUp, FileText, X, Camera, ChevronLeft, ChevronRight } from "lucide-react";
 import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
 import type { YearData, YearTheme } from "@/lib/year-data";
 import { formatPlaceWithTies } from "@/lib/results-ranking";
@@ -295,6 +295,25 @@ function ThemeCard({ theme, onOpen }: { theme: YearTheme; onOpen: () => void }) 
 
 function Lightbox({ images, initial, onClose }: { images: string[]; initial: number; onClose: () => void }) {
   const [idx, setIdx] = useState(initial);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setIdx((i) => (i - 1 + images.length) % images.length);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setIdx((i) => (i + 1) % images.length);
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [images.length, onClose]);
+
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center"
@@ -310,10 +329,10 @@ function Lightbox({ images, initial, onClose }: { images: string[]; initial: num
       </button>
       <button
         type="button"
-        onClick={(e) => { e.stopPropagation(); setIdx((i) => Math.max(0, i - 1)); }}
+        onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + images.length) % images.length); }}
         style={{ position: "absolute", left: "1rem", color: "#fff", background: "rgba(255,255,255,0.1)", border: "none", borderRadius: "50%", width: "48px", height: "48px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem" }}
       >
-        ‹
+        <ChevronLeft size={22} />
       </button>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -324,10 +343,10 @@ function Lightbox({ images, initial, onClose }: { images: string[]; initial: num
       />
       <button
         type="button"
-        onClick={(e) => { e.stopPropagation(); setIdx((i) => Math.min(images.length - 1, i + 1)); }}
+        onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % images.length); }}
         style={{ position: "absolute", right: "1rem", color: "#fff", background: "rgba(255,255,255,0.1)", border: "none", borderRadius: "50%", width: "48px", height: "48px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem" }}
       >
-        ›
+        <ChevronRight size={22} />
       </button>
       <div style={{ position: "absolute", bottom: "1.5rem", color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-inter), sans-serif", fontSize: "0.82rem" }}>
         {idx + 1} / {images.length}
