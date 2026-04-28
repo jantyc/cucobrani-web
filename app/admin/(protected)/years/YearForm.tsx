@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const PROGRAM_BUCKET = "year-program";
+const PROGRAM_PUBLIC_PREFIX = `/storage/v1/object/public/${PROGRAM_BUCKET}/`;
 
 interface YearFormProps {
   id?: string;
@@ -36,9 +37,26 @@ export function YearForm({ id, initial }: YearFormProps) {
   const [uploadingPdf, setUploadingPdf] = useState(false);
   const [programPdfMeta, setProgramPdfMeta] = useState<{ name: string; size: number } | null>(null);
 
+  function getProgramStoragePathFromPublicUrl(url: string | null | undefined): string | null {
+    if (!url) return null;
+    const markerIndex = url.indexOf(PROGRAM_PUBLIC_PREFIX);
+    if (markerIndex === -1) return null;
+    const encodedPath = url.slice(markerIndex + PROGRAM_PUBLIC_PREFIX.length);
+    if (!encodedPath) return null;
+    try {
+      return decodeURIComponent(encodedPath);
+    } catch {
+      return encodedPath;
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    if (uploadingPdf) {
+      setError("Počkej prosím na dokončení uploadu PDF a pak ulož ročník.");
+      return;
+    }
     setSaving(true);
     const supabase = createClient();
     const trimmedTitle = title.trim();
@@ -93,6 +111,11 @@ export function YearForm({ id, initial }: YearFormProps) {
         setError(err.message);
         setSaving(false);
         return;
+      }
+      const previousPdfPath = getProgramStoragePathFromPublicUrl(initial?.program_pdf_url);
+      const nextPdfPath = getProgramStoragePathFromPublicUrl(programPdfUrl);
+      if (previousPdfPath && nextPdfPath && previousPdfPath !== nextPdfPath) {
+        await supabase.storage.from(PROGRAM_BUCKET).remove([previousPdfPath]);
       }
       router.push(`/admin/years/${id}`);
       router.refresh();
@@ -304,11 +327,11 @@ export function YearForm({ id, initial }: YearFormProps) {
       <div className="flex gap-3">
         <button
           type="submit"
-          disabled={saving}
+          disabled={saving || uploadingPdf}
           className="px-6 py-2.5 rounded-lg text-white font-medium disabled:opacity-60"
           style={{ backgroundColor: "#7A1E2C", fontFamily: "var(--font-inter), sans-serif" }}
         >
-          {saving ? "Ukládám…" : "Uložit"}
+          {uploadingPdf ? "Nahrávám PDF…" : saving ? "Ukládám…" : "Uložit"}
         </button>
         <Link
           href="/admin/years"

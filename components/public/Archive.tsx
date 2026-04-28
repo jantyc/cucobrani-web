@@ -190,7 +190,7 @@ export function Archive({ years }: ArchiveProps) {
 
     inFlightRef.current.add(yearId);
     try {
-      const res = await fetch(`/api/years/${yearId}`, { cache: "force-cache" });
+      const res = await fetch(`/api/years/${yearId}`, { cache: "no-store" });
       if (!res.ok) return;
       const full = (await res.json()) as YearData;
       detailCacheRef.current.set(yearId, full);
@@ -220,7 +220,7 @@ export function Archive({ years }: ArchiveProps) {
     setIsDetailLoading(true);
     setLoadingYearId(year.id);
     try {
-      const res = await fetch(`/api/years/${year.id}`, { cache: "force-cache" });
+      const res = await fetch(`/api/years/${year.id}`, { cache: "no-store" });
       if (!res.ok) throw new Error("Detail ročníku se nepodařilo načíst.");
       const full = (await res.json()) as YearData;
 
