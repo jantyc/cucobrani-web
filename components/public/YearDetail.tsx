@@ -221,11 +221,12 @@ function AccordionResult({ title, entries }: { title: React.ReactNode; entries: 
                           color: WINE_RED,
                           fontFamily: "var(--font-inter), sans-serif",
                           fontWeight: 700,
-                          fontSize: "1.24rem",
+                          fontSize: "1rem",
                           lineHeight: 1,
-                          width: "3.35rem",
+                          width: "3.45rem",
                           whiteSpace: "nowrap",
                           flexShrink: 0,
+                          textAlign: "left",
                         }}
                       >
                         {formatPlaceWithTies(entries, i, (x) => x.points)}
@@ -242,7 +243,7 @@ function AccordionResult({ title, entries }: { title: React.ReactNode; entries: 
                         </p>
                       </div>
                     </div>
-                    <span style={{ fontFamily: "var(--font-inter), sans-serif", color: WINE_RED, fontSize: "0.9rem", lineHeight: 1, fontWeight: 700, flexShrink: 0, whiteSpace: "nowrap" }}>
+                    <span style={{ fontFamily: "var(--font-inter), sans-serif", color: WINE_RED, fontSize: "1rem", lineHeight: 1, fontWeight: 700, flexShrink: 0, whiteSpace: "nowrap" }}>
                       {e.points ?? "—"} b
                     </span>
                   </div>

@@ -314,7 +314,7 @@ export default async function YearPage({ params }: PageProps) {
                           {results.red.map((row, i) => (
                             <div key={i} className="rounded-xl border border-black/10 bg-white px-3.5 py-2.5 shadow-[0_1px_5px_rgba(0,0,0,0.03)] flex items-center justify-between gap-2.5">
                               <div className="min-w-0 flex-1 flex items-center gap-2.5">
-                                <span className="w-[3.35rem] shrink-0 text-[1.24rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">
+                                <span className="w-[3.45rem] shrink-0 text-[1rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap text-left">
                                   {formatPlaceWithTies(results.red, i, (x) => x.points)}
                                 </span>
                                 <div className="min-w-0">
@@ -323,7 +323,7 @@ export default async function YearPage({ params }: PageProps) {
                                   <p className="mt-0.5 text-[0.72rem] text-[#575757] leading-tight">{row.wine || "—"}</p>
                                 </div>
                               </div>
-                              <span className="shrink-0 text-[0.9rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">{row.points || "—"} b</span>
+                              <span className="shrink-0 text-[1rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">{row.points || "—"} b</span>
                             </div>
                           ))}
                         </div>
@@ -360,7 +360,7 @@ export default async function YearPage({ params }: PageProps) {
                           {results.white.map((row, i) => (
                             <div key={i} className="rounded-xl border border-black/10 bg-white px-3.5 py-2.5 shadow-[0_1px_5px_rgba(0,0,0,0.03)] flex items-center justify-between gap-2.5">
                               <div className="min-w-0 flex-1 flex items-center gap-2.5">
-                                <span className="w-[3.35rem] shrink-0 text-[1.24rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">
+                                <span className="w-[3.45rem] shrink-0 text-[1rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap text-left">
                                   {formatPlaceWithTies(results.white, i, (x) => x.points)}
                                 </span>
                                 <div className="min-w-0">
@@ -369,7 +369,7 @@ export default async function YearPage({ params }: PageProps) {
                                   <p className="mt-0.5 text-[0.72rem] text-[#575757] leading-tight">{row.wine || "—"}</p>
                                 </div>
                               </div>
-                              <span className="shrink-0 text-[0.9rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">{row.points || "—"} b</span>
+                              <span className="shrink-0 text-[1rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">{row.points || "—"} b</span>
                             </div>
                           ))}
                         </div>
