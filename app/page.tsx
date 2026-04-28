@@ -5,6 +5,7 @@ import { Navbar } from "@/components/public/Navbar";
 import { Hero } from "@/components/public/Hero";
 import { About } from "@/components/public/About";
 import { Footer } from "@/components/public/Footer";
+import { getSiteUrl } from "@/lib/site-url";
 
 const CurrentEdition = dynamic(() =>
   import("@/components/public/CurrentEdition").then((m) => m.CurrentEdition)
@@ -22,6 +23,7 @@ const Contact = dynamic(() =>
 export const revalidate = 300;
 
 export default async function HomePage() {
+  const siteUrl = getSiteUrl();
   let upcomingText = "XXXVIII. ROČNÍK ČŮČOBRANÍ SE KONÁ:";
   let upcomingLocation = "Žďár nad Metují";
   let upcomingDatetime = "30. ledna 2027 od 16:00";
@@ -54,6 +56,64 @@ export default async function HomePage() {
   }
 
   const latestYear = yearsWithData[0] ?? null;
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Čůčobraní",
+    url: siteUrl,
+    description:
+      "Tradiční setkání amatérských výrobců ovocných vín spojené se soutěží o Královnu sklepa.",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Žďár nad Metují",
+      addressRegion: "Náchod",
+      addressCountry: "CZ",
+    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "organizer",
+        name: "Petr Tyč",
+        email: "tycak2@gmail.com",
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "organizer",
+        name: "Libor Artur Martínek",
+        email: "libor.martinek@gmail.com",
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "media",
+        name: "Jan Tyč",
+        email: "honza.tyc@gmail.com",
+      },
+    ],
+  };
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: upcomingText,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: {
+      "@type": "Place",
+      name: upcomingLocation,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Žďár nad Metují",
+        addressRegion: "Náchod",
+        addressCountry: "CZ",
+      },
+    },
+    organizer: {
+      "@type": "Organization",
+      name: "Čůčobraní",
+      url: siteUrl,
+    },
+    description: "Tradiční setkání amatérských výrobců ovocných vín a soutěž o Královnu sklepa.",
+    url: siteUrl,
+  };
   const archiveYears = yearsWithData.map((y) => ({
     ...y,
     // Full detail se načítá až při otevření modalu (API), aby homepage posílala menší payload.
@@ -63,6 +123,14 @@ export default async function HomePage() {
 
   return (
     <div style={{ fontFamily: "var(--font-inter), sans-serif", backgroundColor: "#F6F4F1", minHeight: "100vh" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+      />
       <Navbar />
       <Hero
         upcomingText={upcomingText}

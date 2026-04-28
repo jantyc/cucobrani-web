@@ -5,6 +5,7 @@ import { DARK_WINE, WINE_RED } from "@/lib/theme";
 import { YearProgramDetail } from "@/components/public/YearProgramDetail";
 import { PREHISTORY_ENTRIES, PREHISTORY_LIST_TITLE, PREHISTORY_TITLE } from "@/lib/prehistory";
 import { formatPlaceWithTies } from "@/lib/results-ranking";
+import { getSiteUrl } from "@/lib/site-url";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -66,10 +67,17 @@ async function fetchWineRowsForArchive(
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
+  const siteUrl = getSiteUrl();
   if (id === "prehistorie") {
     return {
       title: `${PREHISTORY_TITLE} | Čůčobraní – archiv`,
       description: "Přehled prehistorických ročníků Čůčobraní (1988-2001).",
+      alternates: {
+        canonical: "/archiv/prehistorie",
+      },
+      openGraph: {
+        url: `${siteUrl}/archiv/prehistorie`,
+      },
     };
   }
   const supabase = createPublicClient();
@@ -78,14 +86,49 @@ export async function generateMetadata({ params }: PageProps) {
   return {
     title: `${title} | Čůčobraní – archiv`,
     description: `Detail ročníku Čůčobraní: ${title}. Výsledky soutěže, program, fotogalerie.`,
+    alternates: {
+      canonical: `/archiv/${id}`,
+    },
+    openGraph: {
+      url: `${siteUrl}/archiv/${id}`,
+    },
   };
 }
 
 export default async function YearPage({ params }: PageProps) {
   const { id } = await params;
+  const siteUrl = getSiteUrl();
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Čůčobraní",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Archiv",
+        item: `${siteUrl}/#archiv`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: id === "prehistorie" ? PREHISTORY_TITLE : "Detail ročníku",
+        item: `${siteUrl}/archiv/${id}`,
+      },
+    ],
+  };
   if (id === "prehistorie") {
     return (
       <div className="min-h-screen" style={{ backgroundColor: "#F6F4F1" }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
         <header className="border-b border-black/10 bg-white">
           <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
             <Link href="/#archiv" className="text-[#7A1E2C] font-medium hover:underline" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
@@ -202,6 +245,10 @@ export default async function YearPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#F6F4F1" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <header className="border-b border-black/10 bg-white">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link

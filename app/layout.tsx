@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Inter } from "next/font/google";
 import "./globals.css";
 import { LIGHT_BG } from "@/lib/theme";
+import { getSiteUrl } from "@/lib/site-url";
 
 const bebas = Bebas_Neue({
   weight: "400",
@@ -17,7 +18,13 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   title: "Čůčobraní – soutěž domácích ovocných vín | Žďár nad Metují",
   description:
     "Tradiční setkání amatérských výrobců ovocných vín. Soutěž o Královnu sklepa, odborná porota, divácká soutěž. Od roku 1988, Machovsko–Policko.",
@@ -28,7 +35,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Čůčobraní – soutěž domácích ovocných vín",
     description: "Tradiční setkání amatérských výrobců ovocných vín. Žďár nad Metují.",
+    url: siteUrl,
+    siteName: "Čůčobraní",
+    type: "website",
     locale: "cs_CZ",
+  },
+  twitter: {
+    card: "summary",
+    title: "Čůčobraní – soutěž domácích ovocných vín",
+    description: "Tradiční setkání amatérských výrobců ovocných vín. Žďár nad Metují.",
   },
   robots: "index, follow",
 };
