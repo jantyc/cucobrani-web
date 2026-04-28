@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { X, FileText } from "lucide-react";
+import { FileText } from "lucide-react";
 import { DARK_WINE } from "@/lib/theme";
+import { PdfProgramViewerModal } from "./PdfProgramViewerModal";
 
 interface YearProgramDetailProps {
   title?: string | null;
@@ -113,46 +114,11 @@ export function YearProgramDetail({ title, author, description, pdfUrl }: YearPr
       </section>
 
       {open && pdfUrl && (
-        <div
-          className="fixed inset-0 z-[210] flex items-center justify-center"
-          style={{ background: "rgba(0,0,0,0.9)" }}
-          onClick={() => setOpen(false)}
-        >
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            style={{
-              position: "absolute",
-              top: "1.25rem",
-              right: "1.25rem",
-              color: "#fff",
-              background: "rgba(255,255,255,0.1)",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <X size={20} />
-          </button>
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: "min(900px, 95vw)",
-              height: "min(85vh, 900px)",
-              backgroundColor: "#f8f5f0",
-              borderRadius: "10px",
-              overflow: "hidden",
-              border: "1px solid rgba(0,0,0,0.15)",
-            }}
-          >
-            <iframe src={pdfUrl} title="Program večera" style={{ width: "100%", height: "100%", border: "none" }} />
-          </div>
-        </div>
+        <PdfProgramViewerModal
+          pdfUrl={pdfUrl}
+          title="Program večera"
+          onClose={() => setOpen(false)}
+        />
       )}
     </>
   );

@@ -6,6 +6,8 @@ import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
 import type { YearData } from "@/lib/year-data";
 import { formatPlaceWithTies } from "@/lib/results-ranking";
 import { WhiteWineIcon } from "./WhiteWineIcon";
+import { PdfFirstPageThumbnail } from "./PdfFirstPageThumbnail";
+import { PdfProgramViewerModal } from "./PdfProgramViewerModal";
 import {
   PREHISTORY_CARD_ID,
   PREHISTORY_ENTRIES,
@@ -523,30 +525,14 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
                           textAlign: "left",
                         }}
                       >
-                        <div
+                        <PdfFirstPageThumbnail
+                          pdfUrl={year.theme.programPdfUrl}
                           style={{
                             width: "96px",
                             height: "64px",
-                            borderRadius: "5px",
-                            overflow: "hidden",
                             flexShrink: 0,
-                            border: "1px solid rgba(167,209,41,0.4)",
-                            backgroundColor: "#1b050a",
-                            position: "relative",
                           }}
-                        >
-                          <iframe
-                            src={`${year.theme.programPdfUrl}#page=1&zoom=page-fit&view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
-                            title="Náhled první stránky programu"
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              border: "none",
-                              pointerEvents: "none",
-                              backgroundColor: "#1b050a",
-                            }}
-                          />
-                        </div>
+                        />
                         <span
                           style={{
                             display: "inline-flex",
@@ -619,8 +605,8 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
                 </div>
               )}
               {[
-                { icon: "white", label: "Bílá vína", data: year.winners.white },
                 { emoji: "🍷", label: "Červená vína", data: year.winners.red },
+                { icon: "white", label: "Bílá vína", data: year.winners.white },
                 { emoji: "👥", label: "Cena diváků", data: year.winners.audience },
                 { emoji: "🤢", label: "Sračka roku", data: year.winners.worst },
               ]
@@ -665,7 +651,6 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
                     Dochovaly se jen střípky – zbytek výsledků se rozpustil v sudu dějin.
                   </p>
                 )}
-                <AccordionResult title={<span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><WhiteWineIcon size="label" /> <span>Bílá vína</span></span>} entries={year.results.white} />
                 <AccordionResult
                   title={
                     <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
@@ -675,6 +660,7 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
                   }
                   entries={year.results.red}
                 />
+                <AccordionResult title={<span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><WhiteWineIcon size="label" /> <span>Bílá vína</span></span>} entries={year.results.white} />
               </>
             )}
 
@@ -777,50 +763,11 @@ export function YearDetail({ year, isDetailLoading = false, onClose }: YearDetai
 
       {lightboxIdx !== null && <Lightbox images={year.gallery} initial={lightboxIdx} onClose={() => setLightboxIdx(null)} />}
       {showProgramModal && year.theme?.programPdfUrl && (
-        <div
-          className="fixed inset-0 z-[110] flex items-center justify-center"
-          style={{ background: "rgba(0,0,0,0.9)" }}
-          onClick={() => setShowProgramModal(false)}
-        >
-          <button
-            type="button"
-            onClick={() => setShowProgramModal(false)}
-            style={{
-              position: "absolute",
-              top: "1.25rem",
-              right: "1.25rem",
-              color: "#fff",
-              background: "rgba(255,255,255,0.1)",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <X size={20} />
-          </button>
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: "min(900px, 95vw)",
-              height: "min(85vh, 900px)",
-              backgroundColor: "#f8f5f0",
-              borderRadius: "10px",
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <iframe
-              src={year.theme.programPdfUrl}
-              title="Program večera"
-              style={{ width: "100%", height: "100%", border: "none" }}
-            />
-          </div>
-        </div>
+        <PdfProgramViewerModal
+          pdfUrl={year.theme.programPdfUrl}
+          onClose={() => setShowProgramModal(false)}
+          title="Program večera"
+        />
       )}
     </>
   );

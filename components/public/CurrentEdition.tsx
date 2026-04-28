@@ -6,6 +6,8 @@ import { DARK_WINE, WINE_RED, ACID_GREEN } from "@/lib/theme";
 import type { YearData, YearTheme } from "@/lib/year-data";
 import { formatPlaceWithTies } from "@/lib/results-ranking";
 import { WhiteWineIcon } from "./WhiteWineIcon";
+import { PdfFirstPageThumbnail } from "./PdfFirstPageThumbnail";
+import { PdfProgramViewerModal } from "./PdfProgramViewerModal";
 
 const PROGRAM_BG = "rgba(255,255,255,0.08)";
 
@@ -241,24 +243,14 @@ function ThemeCard({ theme, onOpen }: { theme: YearTheme; onOpen: () => void }) 
       </div>
       {theme.programThumbnailUrl && (
         <div style={{ padding: "0 1.25rem 1.25rem", marginTop: "auto" }}>
-          <div
-            style={{
-              position: "relative",
-              borderRadius: "7px",
-              overflow: "hidden",
-              border: "1px solid rgba(167,209,41,0.22)",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <iframe
-              src={theme.programThumbnailUrl}
-              title="Náhled programu"
+          <div style={{ position: "relative" }}>
+            <PdfFirstPageThumbnail
+              pdfUrl={theme.programThumbnailUrl}
               style={{
                 width: "100%",
                 aspectRatio: "16/9",
-                border: "none",
-                display: "block",
-                backgroundColor: "#20040a",
+                border: "1px solid rgba(167,209,41,0.22)",
+                borderRadius: "7px",
               }}
             />
             <div
@@ -268,21 +260,28 @@ function ThemeCard({ theme, onOpen }: { theme: YearTheme; onOpen: () => void }) 
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "0.5rem",
-                background: "rgba(30,10,5,0.35)",
+                background: "rgba(30,10,5,0.28)",
               }}
             >
-              <FileText size={14} style={{ color: ACID_GREEN }} />
               <span
                 style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.42rem",
                   fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "0.7rem",
-                  color: "rgba(255,255,255,0.85)",
+                  color: "#FFFFFF",
                   letterSpacing: "0.07em",
                   textTransform: "uppercase",
                   fontWeight: 600,
+                  background: "rgba(122,30,44,0.62)",
+                  border: "1px solid rgba(255,255,255,0.25)",
+                  borderRadius: "5px",
+                  padding: "0.26rem 0.52rem",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.55)",
                 }}
               >
+                <FileText size={14} style={{ color: ACID_GREEN }} />
                 Otevřít program
               </span>
             </div>
@@ -478,18 +477,18 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     {
-                      icon: "white",
-                      label: "1. místo – Bílá vína",
-                      data: latestYear.winners.white,
-                      fallbackName: "První bílá hvězda večera",
-                      fallbackWine: "Ještě je v anonymní karafě.",
-                    },
-                    {
                       emoji: "🍷",
                       label: "1. místo – Červená vína",
                       data: latestYear.winners.red,
                       fallbackName: "Král červeného sklepa",
                       fallbackWine: "Dozraje, až doladíme výsledky.",
+                    },
+                    {
+                      icon: "white",
+                      label: "1. místo – Bílá vína",
+                      data: latestYear.winners.white,
+                      fallbackName: "První bílá hvězda večera",
+                      fallbackWine: "Ještě je v anonymní karafě.",
                     },
                     {
                       emoji: "🤢",
@@ -601,7 +600,6 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                 </p>
               ) : (
                 <>
-                  <AccordionItem title={<span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><WhiteWineIcon size="label" /> <span>Bílá vína</span></span>} entries={latestYear.results.white} />
                   <AccordionItem
                     title={
                       <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
@@ -611,6 +609,7 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
                     }
                     entries={latestYear.results.red}
                   />
+                  <AccordionItem title={<span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><WhiteWineIcon size="label" /> <span>Bílá vína</span></span>} entries={latestYear.results.white} />
                 </>
               )}
             </div>
@@ -701,50 +700,11 @@ export function CurrentEdition({ latestYear }: CurrentEditionProps) {
 
       {lightboxIdx !== null && <Lightbox images={gallery} initial={lightboxIdx} onClose={() => setLightboxIdx(null)} />}
       {showProgramModal && latestYear?.theme?.programPdfUrl && (
-        <div
-          className="fixed inset-0 z-[210] flex items-center justify-center"
-          style={{ background: "rgba(0,0,0,0.9)" }}
-          onClick={() => setShowProgramModal(false)}
-        >
-          <button
-            type="button"
-            onClick={() => setShowProgramModal(false)}
-            style={{
-              position: "absolute",
-              top: "1.25rem",
-              right: "1.25rem",
-              color: "#fff",
-              background: "rgba(255,255,255,0.1)",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <X size={20} />
-          </button>
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: "min(900px, 95vw)",
-              height: "min(85vh, 900px)",
-              backgroundColor: "#1b050a",
-              borderRadius: "10px",
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.15)",
-            }}
-          >
-            <iframe
-              src={latestYear.theme.programPdfUrl}
-              title="Program večera"
-              style={{ width: "100%", height: "100%", border: "none" }}
-            />
-          </div>
-        </div>
+        <PdfProgramViewerModal
+          pdfUrl={latestYear.theme.programPdfUrl}
+          onClose={() => setShowProgramModal(false)}
+          title="Program večera"
+        />
       )}
     </section>
   );

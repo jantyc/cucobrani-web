@@ -307,52 +307,6 @@ export default async function YearPage({ params }: PageProps) {
                         </p>
                       </div>
                     )}
-                    {hasWhite && (
-                      <div>
-                        <h3 className="text-sm font-semibold text-[#666] mb-2">Bílá vína</h3>
-                        <div className="md:hidden space-y-2.5">
-                          {results.white.map((row, i) => (
-                            <div key={i} className="rounded-xl border border-black/10 bg-white px-3.5 py-2.5 shadow-[0_1px_5px_rgba(0,0,0,0.03)] flex items-center justify-between gap-2.5">
-                              <div className="min-w-0 flex-1 flex items-center gap-2.5">
-                                <span className="w-[3.35rem] shrink-0 text-[1.24rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">
-                                  {formatPlaceWithTies(results.white, i, (x) => x.points)}
-                                </span>
-                                <div className="min-w-0">
-                                  <p className="text-[0.86rem] font-bold text-[#222] leading-tight whitespace-nowrap overflow-hidden text-ellipsis">{row.name || "—"}</p>
-                                  <p className="mt-0.5 text-[0.72rem] text-[#666] leading-tight">{formatSampleLabel(row.sample_number)}</p>
-                                  <p className="mt-0.5 text-[0.72rem] text-[#575757] leading-tight">{row.wine || "—"}</p>
-                                </div>
-                              </div>
-                              <span className="shrink-0 text-[0.9rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">{row.points || "—"} b</span>
-                            </div>
-                          ))}
-                        </div>
-                        <table className="hidden md:table w-full border-collapse text-[#333]">
-                          <thead>
-                            <tr className="border-b border-black/10 text-xs uppercase tracking-[0.08em] text-[#888]">
-                              <th className="text-left pb-2 w-10">#</th>
-                              <th className="text-left pb-2 pl-3.5">Výrobce</th>
-                              <th className="text-left pb-2 w-28">Vzorek č.</th>
-                              <th className="text-left pb-2">Víno</th>
-                              <th className="text-right pb-2">Body</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {results.white.map((row, i) => (
-                              <tr key={i} className="border-b border-black/5 text-sm">
-                                <td className="py-2 font-semibold text-[#7A1E2C]">
-                                  {formatPlaceWithTies(results.white, i, (x) => x.points)}
-                                </td>
-                                <td className="py-2 pl-3.5">{row.name || "—"}</td>
-                                <td className="py-2">{row.sample_number || "—"}</td>
-                                <td className="py-2 text-[#666]">{row.wine || "—"}</td>
-                                <td className="py-2 text-right text-[#777]">{row.points || "—"}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    )}
                     {hasRed && (
                       <div>
                         <h3 className="text-sm font-semibold text-[#666] mb-2">Červená vína</h3>
@@ -388,6 +342,52 @@ export default async function YearPage({ params }: PageProps) {
                               <tr key={i} className="border-b border-black/5 text-sm">
                                 <td className="py-2 font-semibold text-[#7A1E2C]">
                                   {formatPlaceWithTies(results.red, i, (x) => x.points)}
+                                </td>
+                                <td className="py-2 pl-3.5">{row.name || "—"}</td>
+                                <td className="py-2">{row.sample_number || "—"}</td>
+                                <td className="py-2 text-[#666]">{row.wine || "—"}</td>
+                                <td className="py-2 text-right text-[#777]">{row.points || "—"}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                    {hasWhite && (
+                      <div>
+                        <h3 className="text-sm font-semibold text-[#666] mb-2">Bílá vína</h3>
+                        <div className="md:hidden space-y-2.5">
+                          {results.white.map((row, i) => (
+                            <div key={i} className="rounded-xl border border-black/10 bg-white px-3.5 py-2.5 shadow-[0_1px_5px_rgba(0,0,0,0.03)] flex items-center justify-between gap-2.5">
+                              <div className="min-w-0 flex-1 flex items-center gap-2.5">
+                                <span className="w-[3.35rem] shrink-0 text-[1.24rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">
+                                  {formatPlaceWithTies(results.white, i, (x) => x.points)}
+                                </span>
+                                <div className="min-w-0">
+                                  <p className="text-[0.86rem] font-bold text-[#222] leading-tight whitespace-nowrap overflow-hidden text-ellipsis">{row.name || "—"}</p>
+                                  <p className="mt-0.5 text-[0.72rem] text-[#666] leading-tight">{formatSampleLabel(row.sample_number)}</p>
+                                  <p className="mt-0.5 text-[0.72rem] text-[#575757] leading-tight">{row.wine || "—"}</p>
+                                </div>
+                              </div>
+                              <span className="shrink-0 text-[0.9rem] leading-none font-bold text-[#7A1E2C] whitespace-nowrap">{row.points || "—"} b</span>
+                            </div>
+                          ))}
+                        </div>
+                        <table className="hidden md:table w-full border-collapse text-[#333]">
+                          <thead>
+                            <tr className="border-b border-black/10 text-xs uppercase tracking-[0.08em] text-[#888]">
+                              <th className="text-left pb-2 w-10">#</th>
+                              <th className="text-left pb-2 pl-3.5">Výrobce</th>
+                              <th className="text-left pb-2 w-28">Vzorek č.</th>
+                              <th className="text-left pb-2">Víno</th>
+                              <th className="text-right pb-2">Body</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {results.white.map((row, i) => (
+                              <tr key={i} className="border-b border-black/5 text-sm">
+                                <td className="py-2 font-semibold text-[#7A1E2C]">
+                                  {formatPlaceWithTies(results.white, i, (x) => x.points)}
                                 </td>
                                 <td className="py-2 pl-3.5">{row.name || "—"}</td>
                                 <td className="py-2">{row.sample_number || "—"}</td>
