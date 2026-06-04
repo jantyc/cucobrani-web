@@ -35,15 +35,13 @@ export function Location({ upcomingDatetime }: LocationProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto] gap-x-12 gap-y-6">
           <div className="lg:col-start-1 lg:row-start-1">
             <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.92)", lineHeight: 1.75, marginBottom: "1.25rem", fontWeight: 500 }}>
-              Čůčobraní se každoročně koná v zimním období v oblasti{" "}
-              <strong style={{ color: "#fff" }}>Policka, v okrese Náchod</strong>.
+              Čůčobraní se každoročně koná v zimním období v oblasti Policka, v okrese Náchod.
             </p>
-            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.75, marginBottom: 0, fontWeight: 500 }}>
-              Vznik akce je spojen s obcí <strong style={{ color: "#fff" }}>Machov</strong>, kde se v
-              hostinci U Lidmanů v Machovské Lhotě konal v roce 1988 první ročník. Po několika letech
-              se Čůčobraní krátce zastavilo v obci Bělý a následně přesunulo do Suchého Dolu, kde
-              setrvalo mnoho let. Poté zamířilo do Žďáru nad Metují, kde v areálu Žďárské Hospůdky
-              kotví dodnes.
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.92)", lineHeight: 1.75, marginBottom: 0, fontWeight: 500 }}>
+              Vznik akce je spojen s obcí Machov, kde se v hostinci U Lidmanů v Machovské Lhotě konal v
+              roce 1988 první ročník. Po několika letech se Čůčobraní krátce zastavilo v obci Bělý a
+              následně přesunulo do Suchého Dolu, kde setrvalo mnoho let. Poté zamířilo do Žďáru nad
+              Metují, kde v areálu Žďárské Hospůdky kotví dodnes.
             </p>
           </div>
 
