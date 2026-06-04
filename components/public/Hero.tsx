@@ -56,7 +56,7 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
               fontWeight: 600,
             }}
           >
-            od roku 1988 · Machovsko–Policko · Žďár nad Metují
+            od roku 1988 · Machovsko, Policko, Žďár nad Metují
           </span>
         </div>
 
@@ -97,8 +97,8 @@ export function Hero({ upcomingText, upcomingLocation, upcomingDatetime }: HeroP
             fontWeight: 500,
           }}
         >
-          Tradiční setkání amatérských výrobců ovocných vín spojené se soutěží o Královnu sklepa.
-          Odborná porota, divácká soutěž, putovní ceny, hudba, humor a občas i odvážné experimenty.
+          Tradiční každoroční setkání amatérských výrobců ovocných vín spojené se soutěží o Královnu sklepa.
+          Odborná porota, divácká soutěž, putovní ceny, hudba, tombola, humor a odvážné experimenty.
         </p>
 
         <div className="flex flex-col items-center gap-3 mb-6">

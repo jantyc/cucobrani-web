@@ -5,8 +5,8 @@ const IMG_TASTING = "/about-cuco-rect.webp";
 const IMG_BOTTLES = "/about-cuco-square.webp";
 
 const categories = [
-  { label: "Bílá ovocná vína", whiteIcon: true },
-  { emoji: "🍷", label: "Červená ovocná vína" },
+  { label: "Bílá ovocná či jiná nerévová vína", whiteIcon: true },
+  { emoji: "🍷", label: "Červená ovocná či jiná nerévová vína" },
 ];
 
 export function About() {
@@ -37,7 +37,7 @@ export function About() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start lg:items-stretch">
           <div>
             <h2
               style={{
@@ -63,7 +63,7 @@ export function About() {
               }}
             >
               Čůčobraní je tradiční soutěž amatérských výrobců domácích ovocných a nerévových vín,
-              pořádaná každou zimu na Machovsku. Výrobci zde poměřují své síly v přátelské, ale
+              pořádaná každou zimu na Policku. Výrobci zde poměřují své síly v přátelské, ale
               odborně vedené degustaci vzorků vykvašených v předchozím roce.
             </p>
             <p
@@ -75,9 +75,10 @@ export function About() {
                 marginBottom: "2rem",
               }}
             >
-              Soutěž doplňuje bohatý program: hudba kapely Domamazec, scénky baletního souboru Hochů
-              Šindelářových a společná zábava. Odborná porota i diváci hodnotí kvalitu, barvu a chuť
-              přihlášených „čůč“, zatímco se všichni účastníci oddávají veselému veselí.
+              Soutěž doplňuje bohatý program: hudba kapely Domamazec, překvapivé scénky baletního
+              souboru Hochů Šindelářových a společná zábava všech účastníků. Odborná porota i diváci
+              hodnotí kvalitu, barvu, vůni a chuť přihlášených „Čůč“. Na to pak navazuje další bohatý
+              program.
             </p>
 
             <div className="mb-8">
@@ -146,8 +147,9 @@ export function About() {
                     lineHeight: 1.5,
                   }}
                 >
-                  Hlavní cena pro absolutně nejlepší víno celé soutěže. Vítěz získá putovní pohár
-                  Královny sklepa.
+                  Hlavní cena pro nejlepší víno soutěže. Vítěz získá titul Královny sklepa, věcné
+                  ceny a putovní trofeje: stříbrného jednokřídlého anděla smrti, důlní přilbici a
+                  rázovitý obraz neznámého mistra.
                 </p>
               </div>
               <div
@@ -179,17 +181,17 @@ export function About() {
                     lineHeight: 1.5,
                   }}
                 >
-                  Putovní anticena pro nejméně povedený mok. Vítěz musí vypít sklenici svého vzorku
-                  na ex.
+                  Putovní anticena pro nejméně povedený mok. Vítěz musí vypít půllitr svého vzorku na
+                  ex a za odměnu získá keramické prase i putovní trofeje: trpaslíka, miniaturu
+                  záchoda a porcelánovou hlavu.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 lg:h-full lg:justify-end">
             <div
-              className="rounded-lg overflow-hidden"
-              style={{ aspectRatio: "4/3", position: "relative" }}
+              className="rounded-lg overflow-hidden relative max-lg:aspect-[4/3] lg:flex-1 lg:min-h-[280px]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -197,13 +199,13 @@ export function About() {
                 alt="Degustace vín"
                 loading="lazy"
                 decoding="async"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "18% center" }}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "18% center" }}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 shrink-0">
               <div
-                className="rounded-lg overflow-hidden"
-                style={{ aspectRatio: "1/1", position: "relative" }}
+                className="rounded-lg overflow-hidden relative aspect-square lg:min-h-[11.5rem]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -211,12 +213,13 @@ export function About() {
                   alt="Domácí vína"
                   loading="lazy"
                   decoding="async"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ objectPosition: "center center" }}
                 />
               </div>
               <div
-                className="rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: DARK_WINE, aspectRatio: "1/1" }}
+                className="rounded-lg flex items-center justify-center aspect-square lg:min-h-[11.5rem]"
+                style={{ backgroundColor: DARK_WINE }}
               >
                 <div className="text-center px-4">
                   <div

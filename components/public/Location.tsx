@@ -29,41 +29,48 @@ export function Location({ upcomingDatetime }: LocationProps) {
             marginBottom: "3rem",
           }}
         >
-          Kde se Čůčobraní koná
+          Kde se Čůčobraní koná?
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto] gap-x-12 gap-y-6">
+          <div className="lg:col-start-1 lg:row-start-1">
             <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.92)", lineHeight: 1.75, marginBottom: "1.25rem", fontWeight: 500 }}>
-              Čůčobraní se každoročně koná v zimním období v oblasti <strong style={{ color: "#fff" }}>Machovska v okrese Náchod</strong>.
+              Čůčobraní se každoročně koná v zimním období v oblasti{" "}
+              <strong style={{ color: "#fff" }}>Policka, v okrese Náchod</strong>.
             </p>
-            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.75, marginBottom: "2rem", fontWeight: 500 }}>
-              Akce je historicky spojená s obcí <strong style={{ color: "#fff" }}>Žďár nad Metují</strong>, kde se konala řada ročníků a odkud pochází mnoho účastníků i organizátorů. Každý ročník probíhá ve vybraném místním restauračním zařízení.
+            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.75, marginBottom: 0, fontWeight: 500 }}>
+              Vznik akce je spojen s obcí <strong style={{ color: "#fff" }}>Machov</strong>, kde se v
+              hostinci U Lidmanů v Machovské Lhotě konal v roce 1988 první ročník. Po několika letech
+              se Čůčobraní krátce zastavilo v obci Bělý a následně přesunulo do Suchého Dolu, kde
+              setrvalo mnoho let. Poté zamířilo do Žďáru nad Metují, kde v areálu Žďárské Hospůdky
+              kotví dodnes.
             </p>
+          </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              {[
-                { emoji: "📍", label: "Region", value: "Machovsko" },
-                { emoji: "🏘️", label: "Obec", value: "Žďár nad Metují" },
-                { emoji: "🗺️", label: "Okres", value: "Náchod" },
-                { emoji: "❄️", label: "Termín", value: termValue },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  style={{
-                    background: "rgba(255,255,255,0.07)",
-                    borderRadius: "10px",
-                    padding: "1rem 1.25rem",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                  }}
-                >
-                  <div style={{ fontSize: "1.25rem", marginBottom: "0.3rem" }}>{item.emoji}</div>
-                  <div style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{item.label}</div>
-                  <div style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.95rem", color: "#fff", fontWeight: 500 }}>{item.value}</div>
-                </div>
-              ))}
-            </div>
+          <div className="lg:col-start-1 lg:row-start-2 grid grid-cols-2 gap-4">
+            {[
+              { emoji: "📍", label: "Region", value: "Policko" },
+              { emoji: "🏘️", label: "Obec", value: "Žďár nad Metují" },
+              { emoji: "🗺️", label: "Okres", value: "Náchod" },
+              { emoji: "❄️", label: "Termín", value: termValue },
+            ].map((item) => (
+              <div
+                key={item.label}
+                style={{
+                  background: "rgba(255,255,255,0.07)",
+                  borderRadius: "10px",
+                  padding: "1rem 1.25rem",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                }}
+              >
+                <div style={{ fontSize: "1.25rem", marginBottom: "0.3rem" }}>{item.emoji}</div>
+                <div style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.2rem" }}>{item.label}</div>
+                <div style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.95rem", color: "#fff", fontWeight: 500 }}>{item.value}</div>
+              </div>
+            ))}
+          </div>
 
+          <div className="lg:col-start-1 lg:row-start-3">
             <a
               href="https://maps.google.com/?q=Žďár+nad+Metují"
               target="_blank"
@@ -97,12 +104,22 @@ export function Location({ upcomingDatetime }: LocationProps) {
             </a>
           </div>
 
-          <div style={{ borderRadius: "14px", overflow: "hidden", aspectRatio: "4/3", position: "relative" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG_LANDSCAPE} alt="Místo konání Čůčobraní" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-            <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(0,0,0,0.6)", borderRadius: "99px", padding: "0.4rem 1rem" }}>
-              <MapPin size={12} style={{ color: ACID_GREEN }} />
-              <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: "#fff" }}>Žďár nad Metují, Machovsko</span>
+          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 flex flex-col justify-end">
+            <div
+              className="rounded-[14px] overflow-hidden relative w-full max-lg:aspect-[4/3] lg:flex-1 lg:min-h-[240px]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={IMG_LANDSCAPE}
+                alt="Místo konání Čůčobraní"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(0,0,0,0.6)", borderRadius: "99px", padding: "0.4rem 1rem" }}>
+                <MapPin size={12} style={{ color: ACID_GREEN }} />
+                <span style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.8rem", color: "#fff" }}>Žďár nad Metují, Policko</span>
+              </div>
             </div>
           </div>
         </div>
