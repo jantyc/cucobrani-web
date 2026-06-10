@@ -80,7 +80,7 @@ export default async function HomePage() {
         "@type": "ContactPoint",
         contactType: "organizer",
         name: "Libor Artur Martínek",
-        email: "libor.martinek@gmail.com",
+        email: "martinek.radechova@gmail.com",
       },
       {
         "@type": "ContactPoint",

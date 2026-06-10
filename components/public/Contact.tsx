@@ -13,7 +13,7 @@ const organizers = [
   {
     name: "Libor Artur Martínek",
     role: "Technický ředitel soutěže Čůčobraní",
-    email: "libor.martinek@gmail.com",
+    email: "martinek.radechova@gmail.com",
     emoji: "⚙️",
   },
   {

@@ -77,7 +77,7 @@ export function Footer() {
             <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.6)", letterSpacing: "0.11em", textTransform: "uppercase", fontWeight: 700, marginBottom: "1rem" }}>Kontakt</p>
             {[
               { name: "Petr Tyč", role: "Samozvaný ředitel soutěže Čůčobraní", email: "tycak2@gmail.com" },
-              { name: "Libor Artur Martínek", role: "Technický ředitel soutěže Čůčobraní", email: "libor.martinek@gmail.com" },
+              { name: "Libor Artur Martínek", role: "Technický ředitel soutěže Čůčobraní", email: "martinek.radechova@gmail.com" },
               { name: "Jan Tyč", role: "Média, fotografie, web", email: "honza.tyc@gmail.com" },
             ].map((contact) => (
               <div key={contact.email} style={{ marginBottom: "0.95rem" }}>
