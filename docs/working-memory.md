@@ -17,6 +17,7 @@
 
 ## Recent changes
 
+- **Umami analytics:** Do `app/layout.tsx` přidán tracking script `cloud.umami.is` do `<head>` (website id `f72fea5d-4d75-4b2b-a34a-eae201a93971`).
 - **Textové úpravy homepage (Hero + O akci + Místo konání):** V `components/public/Hero.tsx` upraven badge lokality (Machovsko, Policko, Žďár nad Metují) a popis akce (každoroční setkání, tombola, bez „občas i“). V `components/public/About.tsx` změněno místo konání na Policko, přepsány odstavce o programu a degustaci, kategorie přejmenovány na „Bílá/Červená ovocná či jiná nerévová vína“, aktualizovány popisy Královny sklepa a Sračky roku (putovní trofeje), dlaždice fotek zarovnané dolů k cenám. V `components/public/Location.tsx` nový historický text (Machov → Bělý → Suchý Důl → Žďárská Hospůdka), region Policko.
 - **Canonical host redirect (`cucobrani.cz` -> `www.cucobrani.cz`) v middleware:** `middleware.ts` je rozšířen z čistě admin matcheru na globální matcher (s vynecháním statických Next assetů a `robots`/`sitemap`) a přidává 308 redirect z apex domény `cucobrani.cz` na canonical host `www.cucobrani.cz`. Zároveň zůstává zachované chování pro Supabase session refresh jen pro `/admin/*` cesty, takže auth flow adminu se nemění.
 - **Fix sitemap/SEO domény proti Vercel preview URL:** `lib/site-url.ts` má nově allowlist hostname (`cucobrani.cz`, `www.cucobrani.cz`), takže i pokud je v env omylem preview doména (`*.vercel.app`), helper vrátí canonical fallback `https://www.cucobrani.cz`. `getSiteUrl()` navíc bere `SITE_URL` i `NEXT_PUBLIC_SITE_URL`.

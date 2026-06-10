@@ -55,6 +55,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="cs" className={`${bebas.variable} ${inter.variable}`}>
+      <head>
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="f72fea5d-4d75-4b2b-a34a-eae201a93971"
+        />
+      </head>
       <body
         className="min-h-screen antialiased"
         style={{
